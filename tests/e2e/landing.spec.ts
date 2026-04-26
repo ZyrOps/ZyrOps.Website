@@ -83,6 +83,17 @@ test("opens dedicated product detail pages", async ({ page }) => {
   }
 });
 
+test("serves crawl endpoints for search engines", async ({ page }) => {
+  const sitemapResponse = await page.goto("/sitemap.xml");
+  expect(sitemapResponse?.status()).toBe(200);
+  await expect(page.locator("body")).toContainText("https://zyrops.com/");
+  await expect(page.locator("body")).toContainText("https://zyrops.com/products/zyrohr");
+
+  const robotsResponse = await page.goto("/robots.txt");
+  expect(robotsResponse?.status()).toBe(200);
+  await expect(page.locator("body")).toContainText("Sitemap: https://zyrops.com/sitemap.xml");
+});
+
 test("keeps landing product cards inside the mobile viewport", async ({ page }) => {
   const viewport = page.viewportSize();
   test.skip(!viewport || viewport.width > 920, "Mobile-only responsive assertion");
