@@ -1,0 +1,534 @@
+"use client";
+
+import { Canvas, useFrame } from "@react-three/fiber";
+import Lenis from "lenis";
+import {
+  Bot,
+  Boxes,
+  BrainCircuit,
+  Cpu,
+  Gauge,
+  Globe2,
+  Layers3,
+  LifeBuoy,
+  MonitorCog,
+  Network,
+  Rocket,
+  ShieldCheck,
+  Smartphone,
+  TerminalSquare,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { ComponentType, MouseEvent, SVGProps } from "react";
+import type { Mesh } from "three";
+
+gsap.registerPlugin(ScrollTrigger);
+
+type ThemeMode = "dark" | "light";
+
+type Service = {
+  title: string;
+  description: string;
+  label: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  size: "wide" | "tall" | "normal";
+};
+
+const services: Service[] = [
+  {
+    title: "Custom SaaS Systems",
+    description:
+      "Tenant-aware portals, billing-ready modules, admin workflows, analytics, and deployment pipelines.",
+    label: "Agentic product teams",
+    icon: Layers3,
+    size: "wide",
+  },
+  {
+    title: "PaaS & Cloud Ops",
+    description:
+      "Container orchestration, observability, release gates, backup policies, and uptime-first runbooks.",
+    label: "Infra autopilot",
+    icon: MonitorCog,
+    size: "tall",
+  },
+  {
+    title: "Mobile App Delivery",
+    description:
+      "Flutter and native-quality app flows with API parity, releases, stores, and post-launch telemetry.",
+    label: "Ship to devices",
+    icon: Smartphone,
+    size: "normal",
+  },
+  {
+    title: "AI Agentic Support",
+    description:
+      "Domain agents for tickets, audits, workflow routing, content extraction, and decision assistance.",
+    label: "Human-in-the-loop",
+    icon: BrainCircuit,
+    size: "normal",
+  },
+  {
+    title: "SEO Growth Systems",
+    description:
+      "Technical SEO, metadata engines, content workflows, tracking, and search-health monitoring.",
+    label: "Signal loops",
+    icon: Globe2,
+    size: "normal",
+  },
+  {
+    title: "Hardware & OS Layer",
+    description:
+      "Device fleets, printer stacks, Windows/Linux support, peripheral integration, and field recovery.",
+    label: "Last-mile reliability",
+    icon: Cpu,
+    size: "wide",
+  },
+];
+
+const stack = [
+  "Rust",
+  "Go",
+  "AI Agents",
+  "React",
+  "Next.js",
+  "PaaS",
+  "Flutter",
+  "Postgres",
+  "Linux",
+  "Observability",
+];
+
+const products = [
+  {
+    name: "Zyro HR",
+    eyebrow: "Human operations",
+    title: "HRMS that keeps attendance, payroll, approvals, and people data in one operational lane.",
+    points: ["Live attendance rails", "Payroll-ready approvals", "Mobile-first employee flows"],
+    device: "phone",
+  },
+  {
+    name: "Cipher POS",
+    eyebrow: "Commerce operations",
+    title: "Point-of-sale, inventory, shop pricing, billing, and reporting tuned for real store workflows.",
+    points: ["Counter-speed checkout", "Stock and expiry control", "Mini print and invoice flows"],
+    device: "laptop",
+  },
+  {
+    name: "Ops Console",
+    eyebrow: "Command layer",
+    title: "A single command surface for releases, incidents, AI agents, metrics, and support handoffs.",
+    points: ["Deploy visibility", "Agent traces", "Human escalation paths"],
+    device: "dashboard",
+  },
+];
+
+function GlassSphere() {
+  const meshRef = useRef<Mesh>(null);
+
+  useFrame(({ clock, pointer }) => {
+    const mesh = meshRef.current;
+    if (!mesh) return;
+    mesh.rotation.x = pointer.y * 0.22 + clock.elapsedTime * 0.08;
+    mesh.rotation.y = pointer.x * 0.36 + clock.elapsedTime * 0.12;
+    const pulse = 1 + Math.sin(clock.elapsedTime * 1.4) * 0.035;
+    mesh.scale.setScalar(pulse + Math.abs(pointer.x) * 0.045);
+  });
+
+  return (
+    <group>
+      <mesh ref={meshRef}>
+        <icosahedronGeometry args={[2.05, 9]} />
+        <meshStandardMaterial
+          color="#dffdf6"
+          metalness={0.46}
+          roughness={0.18}
+          emissive="#15332d"
+          emissiveIntensity={0.22}
+          transparent
+          opacity={0.58}
+        />
+      </mesh>
+      <mesh scale={2.18}>
+        <icosahedronGeometry args={[1, 2]} />
+        <meshBasicMaterial color="#ffffff" wireframe transparent opacity={0.12} />
+      </mesh>
+      <pointLight position={[3, 3, 4]} intensity={5} color="#ffffff" />
+      <pointLight position={[-4, -2, 1]} intensity={2.5} color="#9fffe0" />
+    </group>
+  );
+}
+
+function HeroCanvas() {
+  return (
+    <Canvas camera={{ position: [0, 0, 6], fov: 42 }} dpr={[1, 1.75]}>
+      <ambientLight intensity={0.65} />
+      <GlassSphere />
+    </Canvas>
+  );
+}
+
+function ServiceCard({ service }: { service: Service }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const Icon = service.icon;
+
+  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+    event.currentTarget.style.setProperty("--my", `${event.clientY - rect.top}px`);
+  }
+
+  return (
+    <motion.article
+      ref={cardRef}
+      layout
+      whileHover={{ y: -8, scale: 1.015 }}
+      transition={{ type: "spring", stiffness: 230, damping: 24 }}
+      onMouseMove={handleMouseMove}
+      className={`service-card ${service.size}`}
+    >
+      <div className="service-card__icon">
+        <Icon />
+      </div>
+      <p>{service.label}</p>
+      <h3>{service.title}</h3>
+      <span>{service.description}</span>
+    </motion.article>
+  );
+}
+
+function DeviceMockup({ device, name }: { device: string; name: string }) {
+  if (device === "phone") {
+    return (
+      <div className="phone-frame">
+        <div className="phone-notch" />
+        <div className="phone-screen">
+          <div className="mini-chart bars" />
+          <div className="employee-row active" />
+          <div className="employee-row" />
+          <div className="employee-row short" />
+          <div className="approval-pill">Approved</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (device === "dashboard") {
+    return (
+      <div className="dashboard-frame">
+        <div className="dash-sidebar" />
+        <div className="dash-main">
+          <div className="dash-line strong" />
+          <div className="dash-line" />
+          <div className="dash-grid">
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="trace-panel">
+            <i />
+            <i />
+            <i />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="laptop-frame" aria-label={`${name} product mockup`}>
+      <div className="laptop-screen">
+        <div className="pos-sidebar" />
+        <div className="pos-grid">
+          {Array.from({ length: 9 }).map((_, index) => (
+            <span key={index} />
+          ))}
+        </div>
+        <div className="receipt-panel">
+          <b />
+          <i />
+          <i />
+          <button>Bill</button>
+        </div>
+      </div>
+      <div className="laptop-base" />
+    </div>
+  );
+}
+
+export default function Home() {
+  const rootRef = useRef<HTMLElement>(null);
+  const wipeRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const productsRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [theme, setTheme] = useState<ThemeMode>("dark");
+  const words = useMemo(() => ["Zero", "to", "Operations"], []);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      lerp: 0.08,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.1,
+    });
+
+    const update = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      gsap.ticker.remove(update);
+      lenis.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    const context = gsap.context(() => {
+      gsap.fromTo(
+        ".letter",
+        { yPercent: 110, opacity: 0 },
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.035,
+          ease: "power4.out",
+          delay: 0.25,
+        }
+      );
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        })
+        .to(".zero-word", { scale: 8, autoAlpha: 0, yPercent: -24, ease: "none" }, 0)
+        .fromTo(
+          ".operations-word",
+          { scale: 1.9, autoAlpha: 0.18, yPercent: 18 },
+          { scale: 1, autoAlpha: 1, yPercent: 0, ease: "none" },
+          0
+        )
+        .to(".hero-sphere", { yPercent: -22, scale: 0.78, ease: "none" }, 0);
+
+      const track = trackRef.current;
+      const productSection = productsRef.current;
+      if (track && productSection) {
+        const distance = () => track.scrollWidth - window.innerWidth + 64;
+        gsap.to(track, {
+          x: () => -distance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: productSection,
+            start: "top top",
+            end: () => `+=${distance()}`,
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
+      }
+    }, rootRef);
+
+    return () => context.revert();
+  }, []);
+
+  function switchTheme(nextTheme: ThemeMode) {
+    if (nextTheme === theme) return;
+    const wipe = wipeRef.current;
+    const root = rootRef.current;
+
+    if (!wipe || !root) {
+      setTheme(nextTheme);
+      return;
+    }
+
+    wipe.dataset.mode = nextTheme;
+    gsap.set(wipe, { clipPath: "inset(0 100% 0 0)" });
+    gsap
+      .timeline({
+        defaults: { ease: "power3.inOut" },
+        onComplete: () => {
+          gsap.set(wipe, { clipPath: "inset(0 0 0 100%)" });
+        },
+      })
+      .to(wipe, {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.42,
+        onComplete: () => setTheme(nextTheme),
+      })
+      .to(wipe, { clipPath: "inset(0 0 0 100%)", duration: 0.42 });
+  }
+
+  return (
+    <main ref={rootRef} className="site-shell" data-theme={theme}>
+      <div ref={wipeRef} className="theme-wipe" aria-hidden />
+      <nav className="nav">
+        <a href="#hero" className="brand" aria-label="ZyrOps home">
+          <span>Z</span>
+          <strong>ZyrOps</strong>
+        </a>
+        <div className="nav-links">
+          <a href="#services">Services</a>
+          <a href="#products">Products</a>
+          <a href="#support">Support</a>
+        </div>
+        <div className="nav-actions">
+          <div className="theme-switch" aria-label="Theme switcher">
+            <button
+              type="button"
+              aria-pressed={theme === "dark"}
+              onClick={() => switchTheme("dark")}
+            >
+              Dev
+            </button>
+            <button
+              type="button"
+              aria-pressed={theme === "light"}
+              onClick={() => switchTheme("light")}
+            >
+              Ops
+            </button>
+          </div>
+          <a href="mailto:hello@zyrops.com" className="launch-link">
+            <Rocket />
+            Launch Project
+          </a>
+        </div>
+      </nav>
+
+      <section id="hero" ref={heroRef} className="hero-section">
+        <div className="hero-noise" aria-hidden />
+        <p className="hero-kicker">Kinetic product engineering for serious operators</p>
+        <h1 aria-label="Zero to Operations">
+          {words.map((word) => (
+            <span className="hero-word" key={word}>
+              {word.split("").map((letter, index) => (
+                <span className="letter-wrap" key={`${word}-${letter}-${index}`}>
+                  <span className="letter">{letter}</span>
+                </span>
+              ))}
+            </span>
+          ))}
+        </h1>
+        <p className="hero-copy">
+          ZyrOps turns raw ideas into shipped SaaS, PaaS, mobile apps, support systems, and
+          operational platforms with agentic AI built into the delivery layer.
+        </p>
+        <div className="hero-actions">
+          <a href="mailto:hello@zyrops.com">Start a Build</a>
+          <a href="#products">View Products</a>
+        </div>
+        <div className="hero-sphere" aria-hidden>
+          <HeroCanvas />
+        </div>
+        <div className="scroll-transform" aria-hidden>
+          <span className="zero-word">ZERO</span>
+          <span className="operations-word">OPERATIONS</span>
+        </div>
+      </section>
+
+      <section className="agentic-ticker" aria-label="Technology stack">
+        <div>
+          {[...stack, ...stack].map((item, index) => (
+            <span key={`${item}-${index}`}>{item}</span>
+          ))}
+        </div>
+      </section>
+
+      <section id="services" className="section services-section">
+        <div className="section-heading">
+          <p>Agentic Grid</p>
+          <h2>Everything between product idea and stable operations.</h2>
+        </div>
+        <div className="bento-grid">
+          {services.map((service) => (
+            <ServiceCard key={service.title} service={service} />
+          ))}
+        </div>
+      </section>
+
+      <section id="products" ref={productsRef} className="products-section">
+        <aside className="product-rail" aria-hidden>
+          <span />
+          <span />
+          <span />
+        </aside>
+        <div ref={trackRef} className="product-track">
+          {products.map((product, index) => (
+            <article className="product-panel" key={product.name}>
+              <div className="product-copy">
+                <p>{product.eyebrow}</p>
+                <h2>{product.name}</h2>
+                <h3>{product.title}</h3>
+                <ul>
+                  {product.points.map((point) => (
+                    <li key={point}>
+                      <ShieldCheck />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <motion.div
+                className="product-device"
+                initial={{ opacity: 0, y: 80, rotateX: 8 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: false, amount: 0.45 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
+              >
+                <DeviceMockup device={product.device} name={product.name} />
+              </motion.div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="support" className="section support-section">
+        <div className="support-panel agent">
+          <Bot />
+          <p>AI Agentic Support</p>
+          <h2>Agents read signals, route work, and surface the next action before queues pile up.</h2>
+          <div className="data-viz">
+            <span style={{ height: "62%" }} />
+            <span style={{ height: "88%" }} />
+            <span style={{ height: "46%" }} />
+            <span style={{ height: "72%" }} />
+            <span style={{ height: "94%" }} />
+          </div>
+        </div>
+        <div className="support-panel human">
+          <LifeBuoy />
+          <p>Human Support</p>
+          <h2>When judgment matters, operators step in with context, ownership, and calm escalation.</h2>
+          <div className="people-row" aria-label="Support specialists">
+            <span>A</span>
+            <span>Z</span>
+            <span>O</span>
+          </div>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="footer-grain" aria-hidden />
+        <p>Ready to Operate?</p>
+        <h2>Bring the messy idea. ZyrOps will turn it into a production system.</h2>
+        <a href="mailto:hello@zyrops.com">
+          <TerminalSquare />
+          hello@zyrops.com
+        </a>
+      </footer>
+    </main>
+  );
+}
