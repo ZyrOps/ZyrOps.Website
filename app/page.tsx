@@ -127,7 +127,7 @@ const products = [
     device: "dashboard",
   },
   {
-    name: "ZyroPoS",
+    name: "ZyroPOS",
     eyebrow: "AI-powered point of sale",
     title:
       "Retail billing, inventory, pricing, reporting, and shop workflows built for fast counters and clean operations.",

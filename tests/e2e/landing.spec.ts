@@ -24,7 +24,7 @@ test("exposes services, product panels, and support layers", async ({ page }) =>
   await page.locator("#products").scrollIntoViewIfNeeded();
   await expect(page.getByRole("heading", { name: "ZyroHR" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "ZyroCRM" })).toBeAttached();
-  await expect(page.getByRole("heading", { name: "ZyroPoS" })).toBeAttached();
+  await expect(page.getByRole("heading", { name: "ZyroPOS" })).toBeAttached();
   await expect(page.getByRole("heading", { name: "ZyroSupport" })).toBeAttached();
   await expect(page.getByRole("heading", { name: "ZyroBooks" })).toBeAttached();
   await expect(page.getByRole("heading", { name: "CipherTrak" })).toBeAttached();
@@ -57,13 +57,29 @@ test("opens the dedicated products page with suite and services", async ({ page 
   await page.goto("/products");
 
   await expect(page.getByRole("heading", { name: "Products built for operating businesses." })).toBeVisible();
-  for (const product of ["ZyroHR", "ZyroCRM", "ZyroPoS", "ZyroSupport", "ZyroBooks", "CipherTrak"]) {
+  for (const product of ["ZyroHR", "ZyroCRM", "ZyroPOS", "ZyroSupport", "ZyroBooks", "CipherTrak"]) {
     await expect(page.getByRole("heading", { name: product })).toBeVisible();
   }
 
   await expect(page.getByRole("heading", { name: "Custom WebApp Development" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Mobile App Development" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Desktop App Development" })).toBeVisible();
+});
+
+test("opens dedicated product detail pages", async ({ page }) => {
+  const productPages = [
+    { path: "/products/zyrohr", name: "ZyroHR" },
+    { path: "/products/zyrocrm", name: "ZyroCRM" },
+    { path: "/products/zyropos", name: "ZyroPOS" },
+    { path: "/products/ciphertrak", name: "CipherTrak" },
+  ];
+
+  for (const product of productPages) {
+    await page.goto(product.path);
+    await expect(page.getByRole("heading", { name: product.name, exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: new RegExp(`Discuss ${product.name}`) })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Built for daily operational use/i })).toBeVisible();
+  }
 });
 
 test("keeps landing product cards inside the mobile viewport", async ({ page }) => {

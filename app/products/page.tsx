@@ -16,6 +16,7 @@ import Link from "next/link";
 const products = [
   {
     name: "ZyroHR",
+    href: "/products/zyrohr",
     eyebrow: "AI-powered HRMS",
     description:
       "Attendance, payroll, approvals, employee records, and workforce intelligence for growing teams.",
@@ -23,13 +24,15 @@ const products = [
   },
   {
     name: "ZyroCRM",
+    href: "/products/zyrocrm",
     eyebrow: "AI-powered CRM",
     description:
       "Lead pipelines, customer history, follow-up automation, account tracking, and AI sales assistance.",
     points: ["Lead scoring", "Pipeline visibility", "Smart follow-ups"],
   },
   {
-    name: "ZyroPoS",
+    name: "ZyroPOS",
+    href: "/products/zyropos",
     eyebrow: "AI-powered point of sale",
     description:
       "Retail billing, inventory, pricing, reporting, and shop operations for fast counter workflows.",
@@ -37,6 +40,7 @@ const products = [
   },
   {
     name: "ZyroSupport",
+    href: "",
     eyebrow: "AI-powered support",
     description:
       "Ticketing, customer conversations, SLA tracking, escalation paths, and AI triage for support teams.",
@@ -44,6 +48,7 @@ const products = [
   },
   {
     name: "ZyroBooks",
+    href: "",
     eyebrow: "Accounting platform",
     description:
       "Invoices, expenses, ledgers, payments, reports, and AI-assisted bookkeeping workflows.",
@@ -51,6 +56,7 @@ const products = [
   },
   {
     name: "CipherTrak",
+    href: "/products/ciphertrak",
     eyebrow: "Enterprise employee tracking",
     description:
       "Field workforce tracking, attendance trails, route history, visits, and enterprise visibility.",
@@ -84,7 +90,7 @@ const stack = ["Rust", "GoLang", "Python", "React", "Next.js", "Angular", "Djang
 export const metadata = {
   title: "Products | ZyrOps SaaS Tools",
   description:
-    "Explore ZyrOps AI-powered SaaS products: ZyroHR, ZyroCRM, ZyroPoS, ZyroSupport, ZyroBooks, and CipherTrak.",
+    "Explore ZyrOps AI-powered SaaS products: ZyroHR, ZyroCRM, ZyroPOS, ZyroSupport, ZyroBooks, and CipherTrak.",
 };
 
 export default function ProductsPage() {
@@ -167,24 +173,42 @@ export default function ProductsPage() {
           <h2>Six SaaS tools under one operating mindset.</h2>
         </div>
         <div className="suite-grid">
-          {products.map((product, index) => (
-            <article className="suite-card" key={product.name} style={{ animationDelay: `${index * 70}ms` }}>
-              <div className="suite-card__top">
-                <BrainCircuit />
-                <span>{product.eyebrow}</span>
-              </div>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <ul>
-                {product.points.map((point) => (
-                  <li key={point}>
-                    <CheckCircle2 />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          {products.map((product, index) => {
+            const content = (
+              <>
+                <div className="suite-card__top">
+                  <BrainCircuit />
+                  <span>{product.eyebrow}</span>
+                </div>
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <ul>
+                  {product.points.map((point) => (
+                    <li key={point}>
+                      <CheckCircle2 />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                {product.href ? <span className="suite-card__cta">Open product</span> : null}
+              </>
+            );
+
+            return product.href ? (
+              <Link
+                className="suite-card"
+                href={product.href}
+                key={product.name}
+                style={{ animationDelay: `${index * 70}ms` }}
+              >
+                {content}
+              </Link>
+            ) : (
+              <article className="suite-card" key={product.name} style={{ animationDelay: `${index * 70}ms` }}>
+                {content}
+              </article>
+            );
+          })}
         </div>
       </section>
 

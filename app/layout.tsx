@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "mobile app development",
     "ZyroHR",
     "ZyroCRM",
-    "ZyroPoS",
+    "ZyroPOS",
     "ZyroSupport",
     "ZyroBooks",
     "CipherTrak",
