@@ -1,15 +1,16 @@
 :root {
   color-scheme: dark;
-  --bg: #050505;
-  --bg-soft: #0d0d0d;
-  --text: #f8f8f2;
-  --muted: #9b9b92;
-  --line: rgba(255, 255, 255, 0.14);
-  --panel: rgba(255, 255, 255, 0.075);
-  --panel-strong: rgba(255, 255, 255, 0.13);
-  --accent: #9fffe0;
-  --accent-2: #ffdf78;
-  --shadow: rgba(0, 0, 0, 0.42);
+  --bg: #0b0b14;
+  --bg-soft: #111426;
+  --text: #f4f0ff;
+  --muted: #b8b1ca;
+  --line: rgba(138, 63, 252, 0.28);
+  --panel: rgba(138, 63, 252, 0.08);
+  --panel-strong: rgba(138, 63, 252, 0.16);
+  --accent: #8a3ffc;
+  --accent-2: #b86cff;
+  --accent-3: #5f2acb;
+  --shadow: rgba(3, 2, 12, 0.58);
 }
 
 * {
@@ -22,7 +23,7 @@ html {
 
 body {
   margin: 0;
-  background: #050505;
+  background: #0b0b14;
   font-family:
     ui-sans-serif,
     "Geist",
@@ -51,7 +52,8 @@ svg {
 .site-shell {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 12% 18%, rgba(159, 255, 224, 0.11), transparent 28rem),
+    radial-gradient(circle at 12% 18%, rgba(138, 63, 252, 0.2), transparent 28rem),
+    radial-gradient(circle at 78% 12%, rgba(184, 108, 255, 0.1), transparent 24rem),
     linear-gradient(135deg, var(--bg), var(--bg-soft));
   color: var(--text);
   transition:
@@ -61,18 +63,20 @@ svg {
 
 .site-shell[data-theme="light"] {
   color-scheme: light;
-  --bg: #f6f5ef;
-  --bg-soft: #ffffff;
-  --text: #080808;
-  --muted: #60605a;
-  --line: rgba(0, 0, 0, 0.13);
-  --panel: rgba(0, 0, 0, 0.055);
-  --panel-strong: rgba(0, 0, 0, 0.1);
-  --accent: #025f47;
-  --accent-2: #a86700;
-  --shadow: rgba(10, 10, 10, 0.12);
+  --bg: #f4f0ff;
+  --bg-soft: #e8ddff;
+  --text: #1a1d2e;
+  --muted: #5e5770;
+  --line: rgba(138, 63, 252, 0.26);
+  --panel: rgba(138, 63, 252, 0.08);
+  --panel-strong: rgba(138, 63, 252, 0.14);
+  --accent: #6f2df4;
+  --accent-2: #8a3ffc;
+  --accent-3: #241649;
+  --shadow: rgba(26, 29, 46, 0.18);
   background:
-    radial-gradient(circle at 84% 16%, rgba(2, 95, 71, 0.1), transparent 28rem),
+    radial-gradient(circle at 84% 16%, rgba(138, 63, 252, 0.18), transparent 28rem),
+    radial-gradient(circle at 12% 82%, rgba(26, 29, 46, 0.08), transparent 24rem),
     linear-gradient(135deg, var(--bg), var(--bg-soft));
 }
 
@@ -82,11 +86,11 @@ svg {
   z-index: 80;
   pointer-events: none;
   clip-path: inset(0 100% 0 0);
-  background: #f6f5ef;
+  background: #f4f0ff;
 }
 
 .theme-wipe[data-mode="dark"] {
-  background: #050505;
+  background: #0b0b14;
 }
 
 .nav {
@@ -103,8 +107,10 @@ svg {
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--bg-soft) 70%, transparent);
-  box-shadow: 0 18px 70px var(--shadow);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--panel-strong) 62%, transparent), transparent),
+    color-mix(in srgb, var(--bg-soft) 74%, transparent);
+  box-shadow: 0 18px 70px var(--shadow), 0 0 42px color-mix(in srgb, var(--accent) 10%, transparent);
   backdrop-filter: blur(22px);
 }
 
@@ -120,14 +126,23 @@ svg {
 
 .brand span {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   place-items: center;
   border: 1px solid var(--line);
   border-radius: 50%;
-  background: var(--text);
-  color: var(--bg);
-  font-weight: 900;
+  background:
+    radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 68%),
+    #0b0b14;
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 44%, transparent);
+  overflow: hidden;
+}
+
+.brand img {
+  width: 29px;
+  height: 29px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent-2) 62%, transparent));
 }
 
 .brand strong {
@@ -170,16 +185,17 @@ svg {
 }
 
 .theme-switch button[aria-pressed="true"] {
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #f4f0ff;
 }
 
 .launch-link {
   padding: 10px 16px;
   border-radius: 999px;
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  color: #f4f0ff;
   font-weight: 800;
+  box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
 .hero-section {
@@ -270,8 +286,8 @@ svg {
 }
 
 .hero-actions a:first-child {
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  color: #f4f0ff;
 }
 
 .hero-sphere {
@@ -339,8 +355,8 @@ svg {
 .agentic-ticker {
   overflow: hidden;
   border-block: 1px solid var(--line);
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 48%, #1a1d2e);
+  color: #f4f0ff;
 }
 
 .agentic-ticker div {
@@ -360,7 +376,7 @@ svg {
 .agentic-ticker span::after {
   content: "//";
   margin-left: 28px;
-  color: var(--accent);
+  color: rgba(244, 240, 255, 0.58);
 }
 
 .section {
@@ -414,9 +430,10 @@ svg {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    radial-gradient(circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 28%, transparent), transparent 18rem),
-    linear-gradient(145deg, var(--panel-strong), transparent);
-  box-shadow: 0 24px 90px var(--shadow);
+    radial-gradient(circle at var(--mx) var(--my), color-mix(in srgb, var(--accent-2) 34%, transparent), transparent 18rem),
+    linear-gradient(145deg, var(--panel-strong), transparent),
+    color-mix(in srgb, var(--bg-soft) 62%, transparent);
+  box-shadow: 0 24px 90px var(--shadow), inset 0 1px 0 rgba(244, 240, 255, 0.08);
 }
 
 .service-card.wide {
@@ -479,12 +496,24 @@ svg {
   left: max(22px, calc((100vw - 1180px) / 2));
   z-index: 3;
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .product-rail span {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 58%, transparent);
+}
+
+.product-rail span:first-child {
   width: 2px;
-  height: 90px;
+  height: 120px;
+  justify-self: center;
+  border: 0;
+  border-radius: 999px;
   background: linear-gradient(var(--accent), var(--line));
 }
 
@@ -510,8 +539,9 @@ svg {
 
 .product-copy h2 {
   margin: 10px 0 14px;
-  font-size: clamp(4rem, 9vw, 9rem);
+  font-size: clamp(4rem, 7.2vw, 7.8rem);
   line-height: 0.82;
+  overflow-wrap: normal;
 }
 
 .product-copy h3 {
@@ -608,8 +638,8 @@ svg {
 
 .employee-row.active,
 .approval-pill {
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #f4f0ff;
 }
 
 .approval-pill {
@@ -681,7 +711,7 @@ svg {
   border: 0;
   border-radius: 12px;
   background: var(--accent);
-  color: var(--bg);
+  color: #f4f0ff;
   font-weight: 900;
 }
 
@@ -842,17 +872,661 @@ svg {
 }
 
 .footer p,
-.footer a {
+.footer a,
+.footer-location {
   z-index: 1;
+}
+
+.footer-actions {
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
 }
 
 .footer a {
   min-height: 54px;
   padding: 0 22px;
   border-radius: 999px;
-  background: var(--text);
-  color: var(--bg);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  color: #f4f0ff;
   font-weight: 900;
+}
+
+.footer-location {
+  display: block;
+  margin-top: 18px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.contact-shell {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.contact-nav {
+  grid-template-columns: auto 1fr auto;
+}
+
+.contact-nav .nav-actions {
+  justify-content: end;
+}
+
+.contact-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.62fr);
+  gap: clamp(28px, 6vw, 88px);
+  width: min(1180px, calc(100% - 32px));
+  min-height: 94vh;
+  margin: 0 auto;
+  padding: 148px 0 80px;
+  align-items: center;
+  isolation: isolate;
+}
+
+.contact-orb {
+  position: absolute;
+  top: 14%;
+  left: 38%;
+  z-index: 0;
+  width: min(54vw, 620px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.58), transparent 10%),
+    radial-gradient(circle at 68% 72%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 24%),
+    conic-gradient(from 130deg, transparent, color-mix(in srgb, var(--text) 12%, transparent), transparent, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+  opacity: 0.62;
+  filter: blur(0.2px);
+  pointer-events: none;
+}
+
+.contact-copy,
+.contact-command,
+.contact-grid,
+.contact-checklist {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-copy h1 {
+  margin: 0;
+  max-width: 880px;
+  font-size: clamp(4.2rem, 10vw, 10.8rem);
+  line-height: 0.82;
+  letter-spacing: 0;
+}
+
+.contact-copy > span {
+  display: block;
+  max-width: 680px;
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: clamp(1.03rem, 1.5vw, 1.28rem);
+  line-height: 1.65;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.contact-actions a {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  font-weight: 900;
+  backdrop-filter: blur(14px);
+}
+
+.contact-actions a:first-child {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  color: #f4f0ff;
+  box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.contact-command {
+  align-self: stretch;
+  display: grid;
+  align-content: space-between;
+  min-height: 520px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, var(--panel-strong), transparent),
+    color-mix(in srgb, var(--bg-soft) 64%, transparent);
+  box-shadow: 0 34px 120px var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.command-header,
+.command-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.command-lines {
+  display: grid;
+  gap: 14px;
+}
+
+.command-lines p {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--muted);
+}
+
+.command-lines b {
+  color: var(--text);
+}
+
+.command-status {
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  color: #f4f0ff;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr);
+  gap: 16px;
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 96px 0;
+}
+
+.contact-panel {
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 28px 100px var(--shadow);
+}
+
+.contact-panel > p,
+.contact-checklist p {
+  margin: 0 0 12px;
+  color: var(--accent);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.contact-panel h2,
+.contact-checklist h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4.8vw, 5rem);
+  line-height: 0.92;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.contact-form label:nth-child(4) {
+  grid-column: 1 / -1;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+
+.contact-form input,
+.contact-form select {
+  min-height: 52px;
+  padding: 0 14px;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 150px;
+  padding: 14px;
+  line-height: 1.55;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.contact-form button {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  color: #f4f0ff;
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 26%, transparent);
+}
+
+.contact-info-panel {
+  display: grid;
+  align-content: start;
+}
+
+.channel-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.channel-card,
+.location-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 16px 16px, color-mix(in srgb, var(--accent) 20%, transparent), transparent 8rem),
+    var(--panel);
+}
+
+.channel-card svg,
+.location-card svg {
+  grid-row: span 2;
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+}
+
+.channel-card span,
+.location-card span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.channel-card strong {
+  font-size: clamp(1.02rem, 1.4vw, 1.22rem);
+}
+
+.location-card {
+  margin-top: 16px;
+}
+
+.location-card span {
+  text-transform: none;
+  line-height: 1.55;
+}
+
+.contact-checklist {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  gap: 30px;
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 0 0 96px;
+}
+
+.contact-checklist ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-checklist li {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font-weight: 850;
+}
+
+.contact-checklist li svg {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+
+.contact-ticker {
+  margin-top: -1px;
+}
+
+.contact-footer {
+  min-height: 68vh;
+}
+
+.product-page-shell {
+  overflow: hidden;
+}
+
+.product-page-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.72fr);
+  gap: clamp(28px, 6vw, 90px);
+  width: min(1180px, calc(100% - 32px));
+  min-height: 96vh;
+  margin: 0 auto;
+  padding: 148px 0 84px;
+  align-items: center;
+  isolation: isolate;
+}
+
+.product-page-copy,
+.product-console,
+.suite-section,
+.product-services-section {
+  position: relative;
+  z-index: 1;
+}
+
+.product-page-copy h1 {
+  max-width: 920px;
+  margin: 0;
+  font-size: clamp(4rem, 9vw, 10.4rem);
+  line-height: 0.84;
+  letter-spacing: 0;
+}
+
+.product-page-copy > span {
+  display: block;
+  max-width: 700px;
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: clamp(1.03rem, 1.5vw, 1.28rem);
+  line-height: 1.65;
+}
+
+.product-hero-orbit {
+  position: absolute;
+  top: 13%;
+  right: -8%;
+  z-index: 0;
+  width: min(58vw, 680px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.58), transparent 10%),
+    radial-gradient(circle at 64% 70%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 24%),
+    conic-gradient(from 120deg, transparent, color-mix(in srgb, var(--accent-2) 22%, transparent), transparent, color-mix(in srgb, var(--text) 12%, transparent), transparent);
+  opacity: 0.74;
+  animation: productOrbit 12s linear infinite;
+}
+
+.product-hero-orbit span {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--accent-2) 76%, transparent);
+}
+
+.product-hero-orbit span:nth-child(1) {
+  top: 18%;
+  left: 22%;
+}
+
+.product-hero-orbit span:nth-child(2) {
+  right: 16%;
+  top: 46%;
+}
+
+.product-hero-orbit span:nth-child(3) {
+  bottom: 22%;
+  left: 42%;
+}
+
+.product-console {
+  display: grid;
+  min-height: 520px;
+  align-content: space-between;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 14rem),
+    linear-gradient(145deg, var(--panel-strong), transparent),
+    color-mix(in srgb, var(--bg-soft) 70%, transparent);
+  box-shadow: 0 34px 120px var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.console-top,
+.console-agent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-2);
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.console-grid span {
+  min-height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(145deg, var(--panel-strong), transparent);
+  color: var(--text);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  font-weight: 950;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.console-grid span:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--accent-2) 80%, var(--line));
+  box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 26%, transparent);
+}
+
+.console-agent {
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  color: #f4f0ff;
+}
+
+.suite-section,
+.product-services-section {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 110px 0;
+}
+
+.suite-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.suite-card,
+.product-service-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 20% 16%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 13rem),
+    linear-gradient(145deg, var(--panel-strong), transparent),
+    color-mix(in srgb, var(--bg-soft) 62%, transparent);
+  box-shadow: 0 28px 100px var(--shadow);
+  animation: suiteRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.suite-card::before,
+.product-service-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-2) 26%, transparent), transparent 34%);
+  opacity: 0;
+  transform: translate(-18%, -18%);
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.suite-card:hover,
+.product-service-card:hover {
+  transform: translateY(-8px);
+  border-color: color-mix(in srgb, var(--accent-2) 70%, var(--line));
+  box-shadow: 0 34px 120px var(--shadow), 0 0 38px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.suite-card:hover::before,
+.product-service-card:hover::before {
+  opacity: 1;
+}
+
+.suite-card__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-2);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.suite-card h3,
+.product-service-card h3 {
+  position: relative;
+  margin: 44px 0 14px;
+  font-size: clamp(2.3rem, 4.2vw, 4.8rem);
+  line-height: 0.88;
+}
+
+.suite-card p,
+.product-service-card p {
+  position: relative;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.56;
+}
+
+.suite-card ul {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.suite-card li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-weight: 820;
+}
+
+.suite-card li svg,
+.product-service-card > svg {
+  color: var(--accent-2);
+}
+
+.product-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.product-service-card {
+  min-height: 330px;
+}
+
+.product-service-card > svg {
+  width: 44px;
+  height: 44px;
+}
+
+@keyframes suiteRise {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes productOrbit {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes marquee {
@@ -915,7 +1589,11 @@ svg {
 
   .section-heading,
   .support-section,
-  .product-panel {
+  .product-panel,
+  .contact-hero,
+  .contact-grid,
+  .contact-checklist,
+  .product-page-hero {
     grid-template-columns: 1fr;
   }
 
@@ -954,6 +1632,118 @@ svg {
   .dashboard-frame {
     grid-template-columns: 74px 1fr;
     min-height: 380px;
+  }
+
+  .products-section {
+    min-height: auto;
+    overflow: visible;
+    padding: 76px 0;
+  }
+
+  .product-rail {
+    display: none;
+  }
+
+  .product-track {
+    display: grid;
+    width: min(100% - 32px, 720px);
+    margin: 0 auto;
+    gap: 18px;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .product-panel {
+    width: 100%;
+    min-height: auto;
+    align-items: start;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 14rem),
+      linear-gradient(145deg, var(--panel-strong), transparent),
+      color-mix(in srgb, var(--bg-soft) 62%, transparent);
+    box-shadow: 0 24px 90px var(--shadow);
+  }
+
+  .product-copy {
+    padding-left: 0;
+  }
+
+  .product-copy h2 {
+    font-size: clamp(2.7rem, 14vw, 5.4rem);
+    line-height: 0.9;
+    overflow-wrap: anywhere;
+  }
+
+  .product-copy h3 {
+    max-width: 100%;
+    font-size: clamp(1.05rem, 4.2vw, 1.34rem);
+    line-height: 1.34;
+  }
+
+  .product-copy ul {
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .product-device {
+    width: 100%;
+    min-height: auto;
+    margin-top: 8px;
+    perspective: none;
+  }
+
+  .phone-frame,
+  .laptop-frame,
+  .dashboard-frame {
+    width: min(100%, 420px);
+    box-shadow: 0 20px 70px var(--shadow);
+  }
+
+  .phone-frame {
+    width: min(260px, 78vw);
+  }
+
+  .laptop-screen {
+    min-height: 250px;
+  }
+
+  .dashboard-frame {
+    min-height: 300px;
+  }
+
+  .contact-hero {
+    min-height: auto;
+    padding-top: 130px;
+  }
+
+  .contact-command {
+    min-height: 420px;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+
+  .product-page-hero {
+    min-height: auto;
+    padding-top: 130px;
+  }
+
+  .product-console {
+    min-height: 420px;
+  }
+
+  .suite-grid,
+  .product-service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .suite-section,
+  .product-services-section {
+    padding: 84px 0;
   }
 }
 
@@ -994,16 +1784,96 @@ svg {
     font-size: clamp(2.45rem, 12vw, 4rem);
   }
 
+  .product-panel {
+    padding: 20px;
+  }
+
   .product-copy h2 {
-    font-size: clamp(3.2rem, 18vw, 5.2rem);
+    font-size: clamp(2.25rem, 12vw, 3.6rem);
+    line-height: 0.94;
   }
 
   .phone-frame {
-    width: min(260px, 74vw);
+    width: min(236px, 74vw);
   }
 
-  .product-rail {
-    left: 18px;
+  .laptop-frame,
+  .dashboard-frame {
+    width: 100%;
+  }
+
+  .laptop-screen {
+    grid-template-columns: 42px 1fr;
+    gap: 10px;
+    min-height: 210px;
+    padding: 10px;
+  }
+
+  .pos-grid {
+    gap: 8px;
+  }
+
+  .dashboard-frame {
+    grid-template-columns: 54px 1fr;
+    gap: 10px;
+    min-height: 260px;
+    padding: 12px;
+  }
+
+  .dash-grid {
+    gap: 10px;
+  }
+
+  .dash-grid span {
+    min-height: 78px;
+  }
+
+  .contact-copy h1 {
+    font-size: clamp(3.4rem, 17vw, 5.8rem);
+  }
+
+  .contact-actions a {
+    width: 100%;
+  }
+
+  .contact-command {
+    min-height: 360px;
+    padding: 20px;
+  }
+
+  .contact-grid,
+  .contact-checklist {
+    padding-bottom: 76px;
+  }
+
+  .contact-grid {
+    padding-top: 76px;
+  }
+
+  .product-page-copy h1 {
+    font-size: clamp(3.2rem, 15vw, 5.6rem);
+  }
+
+  .product-page-copy > span {
+    font-size: 1rem;
+  }
+
+  .product-console {
+    min-height: 360px;
+    padding: 20px;
+  }
+
+  .console-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .console-grid span {
+    min-height: 54px;
+  }
+
+  .suite-card,
+  .product-service-card {
+    min-height: auto;
   }
 }
 

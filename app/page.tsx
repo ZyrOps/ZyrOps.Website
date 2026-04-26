@@ -2,6 +2,8 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import Lenis from "lenis";
+import Image from "next/image";
+import Link from "next/link";
 import {
   Bot,
   Boxes,
@@ -13,6 +15,7 @@ import {
   LifeBuoy,
   MonitorCog,
   Network,
+  Phone,
   Rocket,
   ShieldCheck,
   Smartphone,
@@ -41,47 +44,47 @@ const services: Service[] = [
   {
     title: "Custom SaaS Systems",
     description:
-      "Tenant-aware portals, billing-ready modules, admin workflows, analytics, and deployment pipelines.",
+      "Tenant-aware portals, AI workflows, billing-ready modules, admin surfaces, analytics, and deployment pipelines.",
     label: "Agentic product teams",
     icon: Layers3,
     size: "wide",
   },
   {
-    title: "PaaS & Cloud Ops",
+    title: "Programming & Backend",
     description:
-      "Container orchestration, observability, release gates, backup policies, and uptime-first runbooks.",
-    label: "Infra autopilot",
+      "Production systems in Rust, GoLang, Python, Django, Flask, APIs, integrations, and data-backed services.",
+    label: "Rust // Go // Python",
     icon: MonitorCog,
     size: "tall",
   },
   {
     title: "Mobile App Delivery",
     description:
-      "Flutter and native-quality app flows with API parity, releases, stores, and post-launch telemetry.",
-    label: "Ship to devices",
+      "Flutter, Android, and iOS applications with API parity, release builds, store readiness, and telemetry.",
+    label: "Android // iOS // Flutter",
     icon: Smartphone,
     size: "normal",
   },
   {
-    title: "AI Agentic Support",
+    title: "Web Frameworks",
     description:
-      "Domain agents for tickets, audits, workflow routing, content extraction, and decision assistance.",
-    label: "Human-in-the-loop",
+      "React, Next.js, Angular, modern frontend systems, dashboards, customer portals, and landing experiences.",
+    label: "React // Next // Angular",
     icon: BrainCircuit,
     size: "normal",
   },
   {
-    title: "SEO Growth Systems",
+    title: "Desktop Applications",
     description:
-      "Technical SEO, metadata engines, content workflows, tracking, and search-health monitoring.",
-    label: "Signal loops",
+      "Desktop tools, operational utilities, local device workflows, printer stacks, and offline-ready business apps.",
+    label: "Desktop operations",
     icon: Globe2,
     size: "normal",
   },
   {
     title: "Hardware & OS Layer",
     description:
-      "Device fleets, printer stacks, Windows/Linux support, peripheral integration, and field recovery.",
+      "Windows/Linux support, device fleets, peripheral integration, field recovery, and OS-level troubleshooting.",
     label: "Last-mile reliability",
     icon: Cpu,
     size: "wide",
@@ -90,38 +93,70 @@ const services: Service[] = [
 
 const stack = [
   "Rust",
-  "Go",
+  "GoLang",
+  "Python",
   "AI Agents",
   "React",
   "Next.js",
-  "PaaS",
+  "Angular",
+  "Django",
+  "Flask",
   "Flutter",
+  "Android",
+  "iOS",
+  "Desktop Apps",
   "Postgres",
   "Linux",
-  "Observability",
 ];
 
 const products = [
   {
-    name: "Zyro HR",
-    eyebrow: "Human operations",
-    title: "HRMS that keeps attendance, payroll, approvals, and people data in one operational lane.",
-    points: ["Live attendance rails", "Payroll-ready approvals", "Mobile-first employee flows"],
+    name: "ZyroHR",
+    eyebrow: "AI-powered HRMS",
+    title:
+      "Human resource platform for attendance, payroll, approvals, employee records, and AI-assisted workforce decisions.",
+    points: ["Attendance intelligence", "Payroll-ready approvals", "Employee self-service"],
     device: "phone",
   },
   {
-    name: "Cipher POS",
-    eyebrow: "Commerce operations",
-    title: "Point-of-sale, inventory, shop pricing, billing, and reporting tuned for real store workflows.",
-    points: ["Counter-speed checkout", "Stock and expiry control", "Mini print and invoice flows"],
+    name: "ZyroCRM",
+    eyebrow: "AI-powered CRM",
+    title:
+      "Customer relationship platform for leads, pipelines, follow-ups, account history, and AI sales assistance.",
+    points: ["Lead scoring", "Pipeline automation", "Smart follow-up prompts"],
+    device: "dashboard",
+  },
+  {
+    name: "ZyroPoS",
+    eyebrow: "AI-powered point of sale",
+    title:
+      "Retail billing, inventory, pricing, reporting, and shop workflows built for fast counters and clean operations.",
+    points: ["Counter-speed checkout", "Inventory intelligence", "Billing and reports"],
     device: "laptop",
   },
   {
-    name: "Ops Console",
-    eyebrow: "Command layer",
-    title: "A single command surface for releases, incidents, AI agents, metrics, and support handoffs.",
-    points: ["Deploy visibility", "Agent traces", "Human escalation paths"],
+    name: "ZyroSupport",
+    eyebrow: "AI-powered support",
+    title:
+      "Support desk platform for tickets, customer conversations, escalation paths, SLA visibility, and AI triage.",
+    points: ["AI ticket triage", "SLA tracking", "Knowledge suggestions"],
     device: "dashboard",
+  },
+  {
+    name: "ZyroBooks",
+    eyebrow: "Accounting platform",
+    title:
+      "Accounts, invoices, expenses, ledgers, payments, and financial reports with AI-assisted bookkeeping flows.",
+    points: ["Invoice workflows", "Expense control", "Financial reporting"],
+    device: "laptop",
+  },
+  {
+    name: "CipherTrak",
+    eyebrow: "Enterprise employee tracking",
+    title:
+      "Enterprise workforce tracking system for field teams, attendance trails, location history, and operational visibility.",
+    points: ["Field tracking", "Route and visit history", "Enterprise visibility"],
+    device: "phone",
   },
 ];
 
@@ -142,11 +177,11 @@ function GlassSphere() {
       <mesh ref={meshRef}>
         <icosahedronGeometry args={[2.05, 9]} />
         <meshStandardMaterial
-          color="#dffdf6"
+          color="#B86CFF"
           metalness={0.46}
           roughness={0.18}
-          emissive="#15332d"
-          emissiveIntensity={0.22}
+          emissive="#4C169B"
+          emissiveIntensity={0.34}
           transparent
           opacity={0.58}
         />
@@ -156,7 +191,7 @@ function GlassSphere() {
         <meshBasicMaterial color="#ffffff" wireframe transparent opacity={0.12} />
       </mesh>
       <pointLight position={[3, 3, 4]} intensity={5} color="#ffffff" />
-      <pointLight position={[-4, -2, 1]} intensity={2.5} color="#9fffe0" />
+      <pointLight position={[-4, -2, 1]} intensity={2.8} color="#8A3FFC" />
     </group>
   );
 }
@@ -325,18 +360,28 @@ export default function Home() {
       const track = trackRef.current;
       const productSection = productsRef.current;
       if (track && productSection) {
-        const distance = () => track.scrollWidth - window.innerWidth + 64;
-        gsap.to(track, {
-          x: () => -distance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: productSection,
-            start: "top top",
-            end: () => `+=${distance()}`,
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-          },
+        const media = gsap.matchMedia();
+
+        media.add("(min-width: 921px)", () => {
+          const distance = () => track.scrollWidth - window.innerWidth + 64;
+          const tween = gsap.to(track, {
+            x: () => -distance(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: productSection,
+              start: "top top",
+              end: () => `+=${distance()}`,
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+            },
+          });
+
+          return () => {
+            tween.scrollTrigger?.kill();
+            tween.kill();
+            gsap.set(track, { clearProps: "transform" });
+          };
         });
       }
     }, rootRef);
@@ -376,13 +421,16 @@ export default function Home() {
       <div ref={wipeRef} className="theme-wipe" aria-hidden />
       <nav className="nav">
         <a href="#hero" className="brand" aria-label="ZyrOps home">
-          <span>Z</span>
+          <span>
+            <Image src="/logo.png" alt="" width={34} height={34} priority />
+          </span>
           <strong>ZyrOps</strong>
         </a>
         <div className="nav-links">
           <a href="#services">Services</a>
-          <a href="#products">Products</a>
+          <Link href="/products">Products</Link>
           <a href="#support">Support</a>
+          <Link href="/contact">Contact</Link>
         </div>
         <div className="nav-actions">
           <div className="theme-switch" aria-label="Theme switcher">
@@ -401,10 +449,10 @@ export default function Home() {
               Ops
             </button>
           </div>
-          <a href="mailto:hello@zyrops.com" className="launch-link">
+          <Link href="/contact" className="launch-link">
             <Rocket />
             Launch Project
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -423,12 +471,12 @@ export default function Home() {
           ))}
         </h1>
         <p className="hero-copy">
-          ZyrOps turns raw ideas into shipped SaaS, PaaS, mobile apps, support systems, and
-          operational platforms with agentic AI built into the delivery layer.
+          ZyrOps builds AI-powered SaaS tools, web platforms, backend systems, desktop
+          applications, and Android/iOS mobile apps with serious engineering depth.
         </p>
         <div className="hero-actions">
-          <a href="mailto:hello@zyrops.com">Start a Build</a>
-          <a href="#products">View Products</a>
+          <Link href="/contact">Start a Build</Link>
+          <Link href="/products">View Products</Link>
         </div>
         <div className="hero-sphere" aria-hidden>
           <HeroCanvas />
@@ -461,9 +509,9 @@ export default function Home() {
 
       <section id="products" ref={productsRef} className="products-section">
         <aside className="product-rail" aria-hidden>
-          <span />
-          <span />
-          <span />
+          {products.map((product) => (
+            <span key={product.name} />
+          ))}
         </aside>
         <div ref={trackRef} className="product-track">
           {products.map((product, index) => (
@@ -524,10 +572,17 @@ export default function Home() {
         <div className="footer-grain" aria-hidden />
         <p>Ready to Operate?</p>
         <h2>Bring the messy idea. ZyrOps will turn it into a production system.</h2>
-        <a href="mailto:hello@zyrops.com">
-          <TerminalSquare />
-          hello@zyrops.com
-        </a>
+        <div className="footer-actions">
+          <a href="mailto:hello@zyrops.com">
+            <TerminalSquare />
+            hello@zyrops.com
+          </a>
+          <a href="tel:+919488766222">
+            <Phone />
+            +91 9488766222
+          </a>
+        </div>
+        <span className="footer-location">Calicut / Kozhikode and Wayanad, Kerala</span>
       </footer>
     </main>
   );
