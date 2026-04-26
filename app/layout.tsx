@@ -1,41 +1,57 @@
 import type { Metadata, Viewport } from "next";
+import { absoluteUrl, brand, jsonLdScript, organizationSchema, seoKeywords, siteUrl } from "./lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://zyrops.com"),
-  title: "ZyrOps | Zero to Operations",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "ZyrOps | AI SaaS, Web, Mobile & Operations Engineering",
+    template: "%s | ZyrOps",
+  },
   description:
-    "ZyrOps builds AI-powered SaaS tools, web platforms, Rust, GoLang and Python backends, Flutter mobile apps, desktop apps, and OS-level support.",
-  keywords: [
-    "ZyrOps",
-    "SaaS development",
-    "AI agents",
-    "Rust development",
-    "GoLang development",
-    "Python development",
-    "React development",
-    "Next.js development",
-    "Angular development",
-    "Django development",
-    "Flask development",
-    "Flutter development",
-    "Android app development",
-    "iOS app development",
-    "desktop application development",
-    "mobile app development",
-    "ZyroHR",
-    "ZyroCRM",
-    "ZyroPOS",
-    "ZyroSupport",
-    "ZyroBooks",
-    "CipherTrak",
-  ],
+    "ZyrOps LLP builds AI-powered SaaS tools, custom web applications, Rust, GoLang and Python backends, Flutter mobile apps, desktop apps, and operations support from Kozhikode and Wayanad, Kerala.",
+  keywords: seoKeywords,
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  authors: [{ name: brand.legalName, url: siteUrl }],
+  creator: brand.legalName,
+  publisher: brand.legalName,
+  category: "Software development and SaaS products",
   openGraph: {
-    title: "ZyrOps | Zero to Operations",
+    title: "ZyrOps | AI SaaS, Web, Mobile & Operations Engineering",
     description:
-      "Agentic product engineering, infrastructure, and support from zero to operations.",
+      "AI-powered SaaS products, custom software engineering, mobile apps, backend systems, and support from Kozhikode and Wayanad, Kerala.",
+    url: siteUrl,
+    siteName: brand.name,
     type: "website",
+    locale: "en_IN",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "ZyrOps logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "ZyrOps | AI SaaS, Web, Mobile & Operations Engineering",
+    description:
+      "AI-powered SaaS products and custom software engineering from Kozhikode and Wayanad, Kerala.",
     images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   icons: {
     icon: "/logo.png",
@@ -57,7 +73,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(organizationSchema()) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

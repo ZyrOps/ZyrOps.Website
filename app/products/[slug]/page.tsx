@@ -18,6 +18,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { absoluteUrl, brand, jsonLdScript } from "../../lib/seo";
 
 const productDetails = {
   zyrohr: {
@@ -103,8 +104,31 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return {
-    title: `${product.name} | ZyrOps Products`,
+    title: `${product.name} | AI-Powered ${product.metrics[0]} Platform`,
     description: product.description,
+    alternates: {
+      canonical: absoluteUrl(`/products/${slug}`),
+    },
+    openGraph: {
+      title: `${product.name} | ZyrOps Products`,
+      description: product.description,
+      url: absoluteUrl(`/products/${slug}`),
+      type: "website",
+      images: [
+        {
+          url: "/logo.png",
+          width: 512,
+          height: 512,
+          alt: `${product.name} by ZyrOps`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title: `${product.name} | ZyrOps Products`,
+      description: product.description,
+      images: ["/logo.png"],
+    },
   };
 }
 
@@ -117,9 +141,30 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   }
 
   const Icon = product.icon;
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": `${absoluteUrl(`/products/${slug}`)}#software`,
+    name: product.name,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: absoluteUrl(`/products/${slug}`),
+    image: absoluteUrl("/logo.png"),
+    description: product.description,
+    publisher: {
+      "@type": "Organization",
+      name: brand.legalName,
+      url: absoluteUrl("/"),
+    },
+    featureList: product.capabilities,
+  };
 
   return (
     <main className="site-shell product-detail-shell" data-theme="dark">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(productSchema) }}
+      />
       <nav className="nav contact-nav">
         <Link href="/" className="brand" aria-label="ZyrOps home">
           <span>

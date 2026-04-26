@@ -13,7 +13,9 @@ import {
   TerminalSquare,
 } from "lucide-react";
 import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { absoluteUrl, brand } from "../lib/seo";
 
 const intakeItems = [
   "SaaS or internal platform build",
@@ -72,10 +74,25 @@ const channels = [
   },
 ];
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Contact ZyrOps | Launch Project",
   description:
-    "Contact ZyrOps to launch a SaaS, web, backend, desktop, Android, iOS, or AI-powered operations platform project.",
+    "Contact ZyrOps LLP in Kozhikode and Wayanad, Kerala to launch a SaaS, web, backend, desktop, Android, iOS, or AI-powered operations platform project.",
+  alternates: {
+    canonical: absoluteUrl("/contact"),
+  },
+  openGraph: {
+    title: "Contact ZyrOps | Launch Project",
+    description:
+      "Send a project brief to ZyrOps for SaaS, web, backend, mobile, desktop, and AI-powered operations engineering.",
+    url: absoluteUrl("/contact"),
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact ZyrOps | Launch Project",
+    description: `Contact ${brand.legalName} for software and SaaS delivery from Kozhikode and Wayanad.`,
+  },
 };
 
 export default function ContactPage() {

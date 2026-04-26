@@ -12,7 +12,9 @@ import {
   TerminalSquare,
 } from "lucide-react";
 import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { absoluteUrl } from "../lib/seo";
 
 const products = [
   {
@@ -88,10 +90,25 @@ const services = [
 
 const stack = ["Rust", "GoLang", "Python", "React", "Next.js", "Angular", "Django", "Flask", "Flutter"];
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Products | ZyrOps SaaS Tools",
   description:
-    "Explore ZyrOps AI-powered SaaS products: ZyroHR, ZyroCRM, ZyroPOS, ZyroSupport, ZyroBooks, and CipherTrak.",
+    "Explore ZyrOps AI-powered SaaS products for HRMS, CRM, point of sale, support, accounting, and enterprise employee tracking.",
+  alternates: {
+    canonical: absoluteUrl("/products"),
+  },
+  openGraph: {
+    title: "Products | ZyrOps SaaS Tools",
+    description:
+      "ZyroHR, ZyroCRM, ZyroPOS, ZyroSupport, ZyroBooks, and CipherTrak: AI-powered SaaS products from ZyrOps.",
+    url: absoluteUrl("/products"),
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Products | ZyrOps SaaS Tools",
+    description: "AI-powered SaaS tools for HR, CRM, POS, support, accounting, and field tracking.",
+  },
 };
 
 export default function ProductsPage() {

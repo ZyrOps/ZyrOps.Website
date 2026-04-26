@@ -1125,6 +1125,44 @@ svg {
   font-weight: 950;
 }
 
+.seo-faq-section {
+  border-top: 1px solid var(--line);
+}
+
+.seo-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: min(1180px, calc(100% - 32px));
+  margin: 48px auto 0;
+}
+
+.seo-faq-card {
+  min-height: 220px;
+  padding: clamp(24px, 3vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 14% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 16rem),
+    linear-gradient(145deg, var(--panel-strong), transparent),
+    color-mix(in srgb, var(--bg-soft) 60%, transparent);
+  box-shadow: 0 24px 90px var(--shadow);
+}
+
+.seo-faq-card h3 {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  line-height: 1.05;
+}
+
+.seo-faq-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.65;
+}
+
 .footer {
   position: relative;
   display: grid;
@@ -2063,6 +2101,10 @@ svg {
 
   .services-section .bento-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .seo-faq-grid {
+    grid-template-columns: 1fr;
   }
 
   .sticky-services-section {

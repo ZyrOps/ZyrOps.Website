@@ -25,6 +25,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ComponentType, SVGProps } from "react";
 import type { Mesh } from "three";
+import { jsonLdScript } from "./lib/seo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -155,6 +156,34 @@ const products = [
       "Enterprise workforce tracking system for field teams, attendance trails, location history, and operational visibility.",
     points: ["Field tracking", "Route and visit history", "Enterprise visibility"],
     device: "phone",
+  },
+];
+
+const faqs = [
+  {
+    question: "What services does ZyrOps provide?",
+    answer:
+      "ZyrOps provides custom SaaS systems, web app development, backend engineering in Rust, GoLang and Python, React, Next.js and Angular frontends, Flutter mobile apps, desktop applications, and hardware or OS support.",
+  },
+  {
+    question: "Does ZyrOps build AI-powered SaaS products?",
+    answer:
+      "Yes. ZyrOps builds and operates AI-powered SaaS products including ZyroHR, ZyroCRM, ZyroPOS, ZyroSupport, ZyroBooks, and CipherTrak, and also builds custom AI workflows for client platforms.",
+  },
+  {
+    question: "Where is ZyrOps located?",
+    answer:
+      "ZyrOps LLP operates from Kozhikode and Wayanad, Kerala, and delivers software projects for remote and global teams.",
+  },
+  {
+    question: "Which technologies does ZyrOps work with?",
+    answer:
+      "ZyrOps works with Rust, GoLang, Python, Django, Flask, React, Next.js, Angular, Flutter, Android, iOS, desktop application stacks, Linux, and cloud-ready backend systems.",
+  },
+  {
+    question: "How can I contact ZyrOps for a project?",
+    answer:
+      "You can contact ZyrOps by email at hello@zyrops.com, by phone at +91 9488766222, or through the contact form on the ZyrOps website.",
   },
 ];
 
@@ -400,6 +429,18 @@ export default function Home() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [theme, setTheme] = useState<ThemeMode>("dark");
   const words = useMemo(() => ["Zero", "to", "Operations"], []);
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -516,6 +557,7 @@ export default function Home() {
 
   return (
     <main ref={rootRef} className="site-shell" data-theme={theme}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(faqSchema) }} />
       <div ref={wipeRef} className="theme-wipe" aria-hidden />
       <nav className="nav">
         <a href="#hero" className="brand" aria-label="ZyrOps home">
@@ -653,6 +695,21 @@ export default function Home() {
             <span>Z</span>
             <span>O</span>
           </div>
+        </div>
+      </section>
+
+      <section id="faq" className="section seo-faq-section">
+        <div className="section-heading">
+          <p>Answers for operators</p>
+          <h2>Clear answers about ZyrOps services, products, and delivery.</h2>
+        </div>
+        <div className="seo-faq-grid">
+          {faqs.map((faq) => (
+            <article className="seo-faq-card" key={faq.question}>
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </article>
+          ))}
         </div>
       </section>
 
