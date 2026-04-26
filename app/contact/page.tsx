@@ -108,6 +108,7 @@ export default function ContactPage() {
         <div className="nav-links">
           <Link href="/#services">Services</Link>
           <Link href="/products">Products</Link>
+          <Link href="/blogs">Blogs</Link>
           <Link href="/#support">Support</Link>
           <Link href="/contact">Contact</Link>
         </div>

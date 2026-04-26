@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="HR CRM POS product suite artwork">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0912"/>
+      <stop offset=".46" stop-color="#35216f"/>
+      <stop offset="1" stop-color="#8f45ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect x="112" y="124" width="280" height="390" rx="28" fill="#f6f0ff" fill-opacity=".12" stroke="#d7b3ff" stroke-opacity=".44"/>
+  <rect x="460" y="88" width="280" height="480" rx="28" fill="#f6f0ff" fill-opacity=".16" stroke="#d7b3ff" stroke-opacity=".58"/>
+  <rect x="808" y="124" width="280" height="390" rx="28" fill="#f6f0ff" fill-opacity=".12" stroke="#d7b3ff" stroke-opacity=".44"/>
+  <circle cx="252" cy="235" r="58" fill="#a85cff"/>
+  <path d="M190 362h124M190 420h86" stroke="#f6f0ff" stroke-width="22" stroke-linecap="round"/>
+  <path d="M538 250h124M538 318h86M538 386h154" stroke="#f6f0ff" stroke-width="24" stroke-linecap="round"/>
+  <rect x="532" y="168" width="136" height="42" rx="21" fill="#a85cff"/>
+  <path d="M878 220h140M878 288h98M878 356h160" stroke="#f6f0ff" stroke-width="22" stroke-linecap="round"/>
+  <text x="112" y="654" fill="#f6f0ff" font-family="Arial, sans-serif" font-size="44" font-weight="800">HRMS / CRM / POS</text>
+</svg>

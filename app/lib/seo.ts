@@ -48,6 +48,11 @@ export const seoKeywords = [
 export const indexableRoutes = [
   { path: "/", priority: 1, changeFrequency: "weekly" as const },
   { path: "/products", priority: 0.9, changeFrequency: "weekly" as const },
+  { path: "/blogs", priority: 0.88, changeFrequency: "weekly" as const },
+  { path: "/blogs/ai-saas-from-idea-to-operations", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/blogs/hr-crm-pos-ai-suite-for-growing-businesses", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/blogs/choosing-rust-golang-python-for-backend-systems", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/blogs/ai-support-and-enterprise-employee-tracking", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/contact", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/products/zyrohr", priority: 0.78, changeFrequency: "monthly" as const },
   { path: "/products/zyrocrm", priority: 0.78, changeFrequency: "monthly" as const },
@@ -145,4 +150,3 @@ export function organizationSchema() {
     ],
   };
 }
-

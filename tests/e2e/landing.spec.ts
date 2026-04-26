@@ -83,11 +83,36 @@ test("opens dedicated product detail pages", async ({ page }) => {
   }
 });
 
+test("opens blogs with search filters and article comments", async ({ page }) => {
+  await page.goto("/blogs");
+
+  await expect(page.getByText("Search blogs")).toBeVisible();
+  await expect(page.locator(".blog-card")).toHaveCount(4);
+
+  await page.getByPlaceholder("Search AI, SaaS, Rust, CRM, POS...").fill("Rust");
+  await expect(page.getByRole("heading", { name: /Rust, GoLang, or Python/i })).toBeVisible();
+
+  await page.getByRole("button", { name: "#Rust" }).click();
+  await expect(page.locator(".blog-card")).toHaveCount(1);
+
+  await page.getByRole("link", { name: /Rust, GoLang, or Python/i }).click();
+  await expect(page.getByRole("heading", { name: "Rust, GoLang, or Python: choosing the backend for the job" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Comments" })).toBeVisible();
+
+  await page.getByPlaceholder("Your name").fill("ZyrOps Reader");
+  await page
+    .getByPlaceholder("Add a useful question, note, or implementation detail.")
+    .fill("This backend comparison helps us choose the right stack.");
+  await page.getByRole("button", { name: /Post Comment/i }).click();
+  await expect(page.getByText("ZyrOps Reader")).toBeVisible();
+});
+
 test("serves crawl endpoints for search engines", async ({ page }) => {
   const sitemapResponse = await page.goto("/sitemap.xml");
   expect(sitemapResponse?.status()).toBe(200);
   await expect(page.locator("body")).toContainText("https://zyrops.com/");
   await expect(page.locator("body")).toContainText("https://zyrops.com/products/zyrohr");
+  await expect(page.locator("body")).toContainText("https://zyrops.com/blogs/ai-saas-from-idea-to-operations");
 
   const robotsResponse = await page.goto("/robots.txt");
   expect(robotsResponse?.status()).toBe(200);

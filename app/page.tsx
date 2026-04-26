@@ -428,6 +428,8 @@ export default function Home() {
   const productsRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [theme, setTheme] = useState<ThemeMode>("dark");
+  const [activeProductIndex, setActiveProductIndex] = useState(0);
+  const activeProductIndexRef = useRef(0);
   const words = useMemo(() => ["Zero", "to", "Operations"], []);
   const faqSchema = {
     "@context": "https://schema.org",
@@ -502,7 +504,8 @@ export default function Home() {
         const media = gsap.matchMedia();
 
         media.add("(min-width: 921px)", () => {
-          const distance = () => track.scrollWidth - window.innerWidth + 64;
+          const panels = gsap.utils.toArray<HTMLElement>(".product-panel", track);
+          const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
           const tween = gsap.to(track, {
             x: () => -distance(),
             ease: "none",
@@ -512,9 +515,25 @@ export default function Home() {
               end: () => `+=${distance()}`,
               scrub: 1,
               pin: true,
+              pinSpacing: true,
+              invalidateOnRefresh: true,
               anticipatePin: 1,
+              snap: {
+                snapTo: panels.length > 1 ? 1 / (panels.length - 1) : 1,
+                duration: { min: 0.18, max: 0.42 },
+                delay: 0.04,
+                ease: "power2.out",
+              },
+              onUpdate: (self) => {
+                const nextIndex = Math.round(self.progress * (products.length - 1));
+                if (nextIndex !== activeProductIndexRef.current) {
+                  activeProductIndexRef.current = nextIndex;
+                  setActiveProductIndex(nextIndex);
+                }
+              },
             },
           });
+          requestAnimationFrame(() => ScrollTrigger.refresh());
 
           return () => {
             tween.scrollTrigger?.kill();
@@ -569,6 +588,7 @@ export default function Home() {
         <div className="nav-links">
           <a href="#services">Services</a>
           <Link href="/products">Products</Link>
+          <Link href="/blogs">Blogs</Link>
           <a href="#support">Support</a>
           <Link href="/contact">Contact</Link>
         </div>
@@ -639,12 +659,12 @@ export default function Home() {
 
       <section id="products" ref={productsRef} className="products-section">
         <aside className="product-rail" aria-hidden>
-          {products.map((product) => (
-            <span key={product.name} />
+          {products.map((product, index) => (
+            <span className={index === activeProductIndex ? "is-active" : ""} key={product.name} />
           ))}
         </aside>
         <div ref={trackRef} className="product-track">
-          {products.map((product, index) => (
+          {products.map((product) => (
             <article className="product-panel" key={product.name}>
               <div className="product-copy">
                 <p>{product.eyebrow}</p>
@@ -659,15 +679,9 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-              <motion.div
-                className="product-device"
-                initial={{ opacity: 0, y: 80, rotateX: 8 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: false, amount: 0.45 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-              >
+              <div className="product-device">
                 <DeviceMockup device={product.device} name={product.name} />
-              </motion.div>
+              </div>
             </article>
           ))}
         </div>

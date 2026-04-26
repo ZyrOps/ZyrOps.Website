@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="Support and employee tracking platform artwork">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a1034"/>
+      <stop offset=".58" stop-color="#0b0b14"/>
+      <stop offset="1" stop-color="#5c2bd6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <circle cx="596" cy="354" r="240" fill="none" stroke="#d7b3ff" stroke-width="3" opacity=".35"/>
+  <circle cx="596" cy="354" r="125" fill="#a85cff" opacity=".22"/>
+  <path d="M590 176c72 0 130 58 130 130 0 108-130 238-130 238S460 414 460 306c0-72 58-130 130-130Z" fill="none" stroke="#f6f0ff" stroke-width="24" stroke-linejoin="round"/>
+  <circle cx="590" cy="306" r="44" fill="#f6f0ff"/>
+  <path d="M174 534h230M796 216h232M800 514h164" stroke="#a85cff" stroke-width="28" stroke-linecap="round"/>
+  <text x="118" y="654" fill="#f6f0ff" font-family="Arial, sans-serif" font-size="44" font-weight="800">Support + Field Tracking</text>
+</svg>
