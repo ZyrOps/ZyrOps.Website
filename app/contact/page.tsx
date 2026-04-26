@@ -3,6 +3,7 @@ import {
   Bot,
   CalendarClock,
   CheckCircle2,
+  ExternalLink,
   Mail,
   MapPin,
   MessageSquareText,
@@ -54,6 +55,20 @@ const channels = [
     label: "Response",
     value: "Same business day",
     href: "mailto:hello@zyrops.com?subject=Schedule%20a%20ZyrOps%20Call",
+  },
+  {
+    icon: ExternalLink,
+    label: "Instagram",
+    value: "@zyropsllp",
+    href: "https://www.instagram.com/zyropsllp",
+    external: true,
+  },
+  {
+    icon: ExternalLink,
+    label: "LinkedIn",
+    value: "ZyrOps LLP",
+    href: "https://www.linkedin.com/company/zyrops-llp",
+    external: true,
   },
 ];
 
@@ -208,7 +223,13 @@ export default function ContactPage() {
             {channels.map((channel) => {
               const Icon = channel.icon;
               return (
-                <a href={channel.href} key={channel.label} className="channel-card">
+                <a
+                  href={channel.href}
+                  key={channel.label}
+                  className="channel-card"
+                  target={channel.external ? "_blank" : undefined}
+                  rel={channel.external ? "noreferrer" : undefined}
+                >
                   <Icon />
                   <span>{channel.label}</span>
                   <strong>{channel.value}</strong>
@@ -218,7 +239,7 @@ export default function ContactPage() {
           </div>
           <div className="location-card">
             <MapPin />
-            <span>Locations: Calicut / Kozhikode and Wayanad, Kerala. Remote-first delivery for global teams.</span>
+            <span>Locations: Kozhikode and Wayanad, Kerala. Remote-first delivery for global teams.</span>
           </div>
         </div>
       </section>
@@ -251,8 +272,16 @@ export default function ContactPage() {
             <Phone />
             +91 9488766222
           </a>
+          <a href="https://www.instagram.com/zyropsllp" target="_blank" rel="noreferrer">
+            <ExternalLink />
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/company/zyrops-llp" target="_blank" rel="noreferrer">
+            <ExternalLink />
+            LinkedIn
+          </a>
         </div>
-        <span className="footer-location">Calicut / Kozhikode and Wayanad, Kerala</span>
+        <span className="footer-location">Kozhikode and Wayanad, Kerala</span>
       </footer>
     </main>
   );

@@ -512,6 +512,250 @@ svg {
   line-height: 1.55;
 }
 
+.sticky-services-section {
+  position: relative;
+  scroll-margin-top: 118px;
+  border-block: 1px solid var(--line);
+}
+
+.sticky-services-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.72fr);
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  gap: clamp(28px, 6vw, 86px);
+}
+
+.sticky-services-left {
+  position: sticky;
+  top: 0;
+  display: grid;
+  height: 100vh;
+  align-items: center;
+  padding: 112px 0 58px;
+}
+
+.sticky-services-panel {
+  position: relative;
+  display: grid;
+  min-height: min(680px, calc(100vh - 170px));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--accent-2) 26%, transparent), transparent 18rem),
+    radial-gradient(circle at 70% 76%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 20rem),
+    linear-gradient(145deg, var(--panel-strong), transparent),
+    color-mix(in srgb, var(--bg-soft) 70%, transparent);
+  box-shadow: 0 34px 120px var(--shadow);
+}
+
+.sticky-services-panel__copy {
+  position: relative;
+  z-index: 4;
+  align-self: start;
+  width: min(440px, calc(100% - 56px));
+  padding: clamp(24px, 3vw, 38px);
+}
+
+.sticky-services-panel__copy p,
+.service-step-card p {
+  margin: 0 0 12px;
+  color: var(--accent-2);
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.sticky-services-panel__copy h2 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+.sticky-services-panel__copy span {
+  display: block;
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+  line-height: 1.55;
+}
+
+.sticky-services-stage {
+  position: absolute;
+  inset: 178px 28px 190px;
+  display: grid;
+  place-items: center;
+}
+
+.sticky-services-orbit {
+  position: absolute;
+  width: min(56%, 340px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 34%, transparent);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.42), transparent 10%),
+    conic-gradient(from 120deg, transparent, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent);
+  opacity: 0.5;
+  animation: productOrbit 14s linear infinite;
+}
+
+.sticky-service-visual__item {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.sticky-service-icon {
+  display: grid;
+  width: clamp(126px, 15vw, 196px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 42px;
+  background:
+    radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--accent-2) 34%, transparent), transparent 60%),
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 38%, transparent), color-mix(in srgb, var(--bg) 78%, transparent));
+  box-shadow:
+    inset 0 1px 0 rgba(244, 240, 255, 0.12),
+    0 0 60px color-mix(in srgb, var(--accent) 32%, transparent);
+}
+
+.sticky-service-icon svg {
+  width: 44%;
+  height: 44%;
+  color: var(--text);
+  filter: drop-shadow(0 0 22px color-mix(in srgb, var(--accent-2) 70%, transparent));
+}
+
+.sticky-service-visual__item span {
+  color: var(--accent-2);
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  font-weight: 950;
+}
+
+.sticky-services-map {
+  position: absolute;
+  right: 34px;
+  bottom: 62px;
+  left: 34px;
+  z-index: 4;
+  display: block;
+}
+
+.sticky-service-marker {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 20%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg) 42%, transparent);
+  box-shadow: inset 0 1px 0 rgba(244, 240, 255, 0.08);
+  transform-origin: center;
+}
+
+.sticky-service-marker.is-active {
+  border-color: color-mix(in srgb, var(--accent-2) 62%, transparent);
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 8rem),
+    color-mix(in srgb, var(--bg) 58%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(244, 240, 255, 0.14),
+    0 0 24px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.sticky-service-marker span {
+  color: var(--accent-2);
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
+.sticky-service-marker svg {
+  width: 22px;
+  height: 22px;
+  color: var(--accent-2);
+}
+
+.sticky-service-marker strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+  font-weight: 900;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sticky-services-progress {
+  position: absolute;
+  right: 34px;
+  bottom: 30px;
+  left: 34px;
+  z-index: 3;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.sticky-services-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.sticky-services-right {
+  padding: 112px 0 48vh;
+}
+
+.service-step-card {
+  display: grid;
+  min-height: calc(100vh - 120px);
+  align-content: center;
+  padding: clamp(24px, 4vw, 42px) 0;
+}
+
+.service-step-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--accent-2);
+  font-weight: 950;
+}
+
+.service-step-card__meta svg {
+  width: 34px;
+  height: 34px;
+}
+
+.service-step-card h3 {
+  margin: 0 0 18px;
+  color: var(--text);
+  font-size: clamp(2.6rem, 5vw, 5.8rem);
+  line-height: 0.88;
+  letter-spacing: 0;
+}
+
+.service-step-card > span {
+  color: var(--muted);
+  font-size: clamp(1.02rem, 1.5vw, 1.25rem);
+  line-height: 1.65;
+}
+
 .products-section {
   position: relative;
   min-height: 100vh;
@@ -1821,6 +2065,66 @@ svg {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sticky-services-section {
+    min-height: auto;
+    padding: 82px 0;
+  }
+
+  .sticky-services-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sticky-services-left {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    padding: 0;
+  }
+
+  .sticky-services-panel {
+    min-height: 640px;
+  }
+
+  .sticky-services-panel__copy {
+    width: min(480px, calc(100% - 44px));
+  }
+
+  .sticky-services-stage {
+    inset: 190px 20px 220px;
+  }
+
+  .sticky-services-orbit {
+    width: min(62%, 300px);
+  }
+
+  .sticky-services-map {
+    right: 22px;
+    bottom: 58px;
+    left: 22px;
+  }
+
+  .sticky-services-right {
+    display: grid;
+    gap: 16px;
+    padding: 16px 0 0;
+  }
+
+  .service-step-card {
+    min-height: auto;
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background:
+      radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 14rem),
+      linear-gradient(145deg, var(--panel-strong), transparent),
+      color-mix(in srgb, var(--bg-soft) 62%, transparent);
+    box-shadow: 0 24px 90px var(--shadow);
+  }
+
+  .service-step-card h3 {
+    font-size: clamp(2.2rem, 7vw, 4.2rem);
+  }
+
   .service-card.wide,
   .service-card.tall {
     grid-column: auto;
@@ -2022,6 +2326,59 @@ svg {
 
   .services-section .bento-grid {
     grid-template-columns: 1fr;
+  }
+
+  .sticky-services-panel {
+    min-height: 630px;
+  }
+
+  .sticky-services-panel__copy {
+    width: calc(100% - 36px);
+    padding: 22px;
+  }
+
+  .sticky-services-panel__copy h2 {
+    font-size: clamp(1.65rem, 8vw, 2.35rem);
+  }
+
+  .sticky-services-panel__copy span {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .sticky-service-icon {
+    width: clamp(118px, 36vw, 150px);
+    border-radius: 30px;
+  }
+
+  .sticky-services-stage {
+    inset: 202px 18px 220px;
+  }
+
+  .sticky-services-orbit {
+    width: min(70%, 250px);
+  }
+
+  .sticky-service-marker {
+    padding: 12px 13px;
+  }
+
+  .sticky-service-marker strong {
+    font-size: 0.9rem;
+  }
+
+  .sticky-services-progress {
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .service-step-card {
+    padding: 22px;
+  }
+
+  .service-step-card h3 {
+    font-size: clamp(2rem, 11vw, 3.5rem);
   }
 
   .services-section .service-card {

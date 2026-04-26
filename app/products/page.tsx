@@ -4,6 +4,7 @@ import {
   Boxes,
   BrainCircuit,
   CheckCircle2,
+  ExternalLink,
   Laptop,
   MonitorCog,
   Rocket,
@@ -244,8 +245,16 @@ export default function ProductsPage() {
             <Smartphone />
             +91 9488766222
           </a>
+          <a href="https://www.instagram.com/zyropsllp" target="_blank" rel="noreferrer">
+            <ExternalLink />
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/company/zyrops-llp" target="_blank" rel="noreferrer">
+            <ExternalLink />
+            LinkedIn
+          </a>
         </div>
-        <span className="footer-location">Calicut / Kozhikode and Wayanad, Kerala</span>
+        <span className="footer-location">Kozhikode and Wayanad, Kerala</span>
       </footer>
     </main>
   );

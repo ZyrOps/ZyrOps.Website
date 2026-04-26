@@ -6,26 +6,24 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Bot,
-  Boxes,
   BrainCircuit,
   Cpu,
-  Gauge,
+  ExternalLink,
   Globe2,
   Layers3,
   LifeBuoy,
   MonitorCog,
-  Network,
   Phone,
   Rocket,
   ShieldCheck,
   Smartphone,
   TerminalSquare,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { ComponentType, MouseEvent, SVGProps } from "react";
+import type { ComponentType, SVGProps } from "react";
 import type { Mesh } from "three";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -205,32 +203,132 @@ function HeroCanvas() {
   );
 }
 
-function ServiceCard({ service }: { service: Service }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+function StickyServiceVisual({
+  service,
+  index,
+}: {
+  service: Service;
+  index: number;
+}) {
   const Icon = service.icon;
 
-  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty("--mx", `${event.clientX - rect.left}px`);
-    event.currentTarget.style.setProperty("--my", `${event.clientY - rect.top}px`);
-  }
-
   return (
-    <motion.article
-      ref={cardRef}
-      layout
-      whileHover={{ y: -8, scale: 1.015 }}
-      transition={{ type: "spring", stiffness: 230, damping: 24 }}
-      onMouseMove={handleMouseMove}
-      className={`service-card ${service.size}`}
+    <motion.div
+      className="sticky-service-visual__item"
+      initial={false}
+      animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="service-card__icon">
+      <div className="sticky-service-icon">
         <Icon />
       </div>
-      <p>{service.label}</p>
-      <h3>{service.title}</h3>
-      <span>{service.description}</span>
-    </motion.article>
+      <span>{String(index + 1).padStart(2, "0")}</span>
+    </motion.div>
+  );
+}
+
+function StickyServiceMarker({
+  service,
+  index,
+  active,
+}: {
+  service: Service;
+  index: number;
+  active: boolean;
+}) {
+  const Icon = service.icon;
+
+  return (
+    <motion.div
+      className={`sticky-service-marker${active ? " is-active" : ""}`}
+      animate={{ opacity: active ? 1 : 0.52, scale: active ? 1 : 0.96 }}
+      transition={{ duration: 0.28 }}
+    >
+      <span>{String(index + 1).padStart(2, "0")}</span>
+      <Icon />
+      <strong>{service.title}</strong>
+    </motion.div>
+  );
+}
+
+function StickyServicesSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [activeServiceIndex, setActiveServiceIndex] = useState(0);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const progressScale = useTransform(scrollYProgress, [0, 1], [0.04, 1]);
+  const activeService = services[activeServiceIndex] ?? services[0];
+
+  return (
+    <section id="services" ref={sectionRef} className="sticky-services-section">
+      <div className="sticky-services-layout">
+        <aside className="sticky-services-left">
+          <div className="sticky-services-panel">
+            <div className="sticky-services-panel__copy">
+              <p>Services We Provide</p>
+              <motion.h2
+                key={`${activeService.title}-title`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {activeService.title}
+              </motion.h2>
+              <motion.span
+                key={`${activeService.title}-description`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.24, delay: 0.04, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {activeService.description}
+              </motion.span>
+            </div>
+            <div className="sticky-services-stage" aria-hidden>
+              <StickyServiceVisual service={activeService} index={activeServiceIndex} />
+              <div className="sticky-services-orbit" />
+            </div>
+            <div className="sticky-services-map" aria-label="Active service">
+              <StickyServiceMarker
+                key={activeService.title}
+                service={activeService}
+                index={activeServiceIndex}
+                active
+              />
+            </div>
+            <div className="sticky-services-progress" aria-hidden>
+              <motion.span style={{ scaleX: progressScale }} />
+            </div>
+          </div>
+        </aside>
+
+        <div className="sticky-services-right">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <motion.article
+                className="service-step-card"
+                key={service.title}
+                initial={{ opacity: 0.28, y: 42 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ amount: 0.55 }}
+                onViewportEnter={() => setActiveServiceIndex(index)}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="service-step-card__meta">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <Icon />
+                </div>
+                <p>{service.label}</p>
+                <h3>{service.title}</h3>
+                <span>{service.description}</span>
+              </motion.article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -495,17 +593,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="services" className="section services-section">
-        <div className="section-heading">
-          <p>Agentic Grid</p>
-          <h2>Everything between product idea and stable operations.</h2>
-        </div>
-        <div className="bento-grid">
-          {services.map((service) => (
-            <ServiceCard key={service.title} service={service} />
-          ))}
-        </div>
-      </section>
+      <StickyServicesSection />
 
       <section id="products" ref={productsRef} className="products-section">
         <aside className="product-rail" aria-hidden>
@@ -581,8 +669,16 @@ export default function Home() {
             <Phone />
             +91 9488766222
           </a>
+          <a href="https://www.instagram.com/zyropsllp" target="_blank" rel="noreferrer">
+            <ExternalLink />
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/company/zyrops-llp" target="_blank" rel="noreferrer">
+            <ExternalLink />
+            LinkedIn
+          </a>
         </div>
-        <span className="footer-location">Calicut / Kozhikode and Wayanad, Kerala</span>
+        <span className="footer-location">Kozhikode and Wayanad, Kerala</span>
       </footer>
     </main>
   );

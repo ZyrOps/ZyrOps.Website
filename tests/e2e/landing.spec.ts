@@ -18,8 +18,9 @@ test("exposes services, product panels, and support layers", async ({ page }) =>
   await page.goto("/");
 
   await page.locator("#services").scrollIntoViewIfNeeded();
-  await expect(page.getByRole("heading", { name: /Everything between/i })).toBeVisible();
-  await expect(page.locator(".service-card")).toHaveCount(6);
+  await expect(page.getByText("Services We Provide").first()).toBeVisible();
+  await expect(page.locator(".service-step-card")).toHaveCount(6);
+  await expect(page.locator(".sticky-service-marker")).toHaveCount(1);
 
   await page.locator("#products").scrollIntoViewIfNeeded();
   await expect(page.getByRole("heading", { name: "ZyroHR" })).toBeVisible();
@@ -40,7 +41,7 @@ test("opens the contact intake page with usable fields", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Tell us what needs to ship." })).toBeVisible();
   await expect(page.getByRole("link", { name: /Launch by Email/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /Call \+91/i })).toBeVisible();
-  await expect(page.getByText(/^Locations: Calicut \/ Kozhikode and Wayanad/i)).toBeVisible();
+  await expect(page.getByText(/^Locations: Kozhikode and Wayanad/i)).toBeVisible();
   await expect(page.getByRole("heading", { name: "Project brief" })).toBeVisible();
 
   await page.getByPlaceholder("Your name").fill("ZyrOps Client");
