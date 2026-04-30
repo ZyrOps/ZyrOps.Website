@@ -49,6 +49,8 @@ export const indexableRoutes = [
   { path: "/", priority: 1, changeFrequency: "weekly" as const },
   { path: "/products", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/blogs", priority: 0.88, changeFrequency: "weekly" as const },
+  { path: "/careers", priority: 0.82, changeFrequency: "daily" as const },
+  { path: "/site-map", priority: 0.7, changeFrequency: "weekly" as const },
   { path: "/blogs/ai-saas-from-idea-to-operations", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/blogs/hr-crm-pos-ai-suite-for-growing-businesses", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/blogs/choosing-rust-golang-python-for-backend-systems", priority: 0.75, changeFrequency: "monthly" as const },

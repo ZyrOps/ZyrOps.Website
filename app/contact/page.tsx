@@ -7,6 +7,7 @@ import {
   Mail,
   MapPin,
   MessageSquareText,
+  Network,
   Phone,
   Rocket,
   Send,
@@ -109,6 +110,7 @@ export default function ContactPage() {
           <Link href="/#services">Services</Link>
           <Link href="/products">Products</Link>
           <Link href="/blogs">Blogs</Link>
+          <Link href="/careers">Careers</Link>
           <Link href="/#support">Support</Link>
           <Link href="/contact">Contact</Link>
         </div>
@@ -298,6 +300,10 @@ export default function ContactPage() {
             <ExternalLink />
             LinkedIn
           </a>
+          <Link href="/site-map">
+            <Network />
+            Site map
+          </Link>
         </div>
         <span className="footer-location">Kozhikode and Wayanad, Kerala</span>
       </footer>

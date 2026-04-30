@@ -111,6 +111,7 @@ const stack = [
 const products = [
   {
     name: "ZyroHR",
+    href: "/products/zyrohr",
     eyebrow: "AI-powered HRMS",
     title:
       "Human resource platform for attendance, payroll, approvals, employee records, and AI-assisted workforce decisions.",
@@ -119,6 +120,7 @@ const products = [
   },
   {
     name: "ZyroCRM",
+    href: "/products/zyrocrm",
     eyebrow: "AI-powered CRM",
     title:
       "Customer relationship platform for leads, pipelines, follow-ups, account history, and AI sales assistance.",
@@ -127,6 +129,7 @@ const products = [
   },
   {
     name: "ZyroPOS",
+    href: "/products/zyropos",
     eyebrow: "AI-powered point of sale",
     title:
       "Retail billing, inventory, pricing, reporting, and shop workflows built for fast counters and clean operations.",
@@ -135,6 +138,7 @@ const products = [
   },
   {
     name: "ZyroSupport",
+    href: "",
     eyebrow: "AI-powered support",
     title:
       "Support desk platform for tickets, customer conversations, escalation paths, SLA visibility, and AI triage.",
@@ -143,6 +147,7 @@ const products = [
   },
   {
     name: "ZyroBooks",
+    href: "",
     eyebrow: "Accounting platform",
     title:
       "Accounts, invoices, expenses, ledgers, payments, and financial reports with AI-assisted bookkeeping flows.",
@@ -151,6 +156,7 @@ const products = [
   },
   {
     name: "CipherTrak",
+    href: "/products/ciphertrak",
     eyebrow: "Enterprise employee tracking",
     title:
       "Enterprise workforce tracking system for field teams, attendance trails, location history, and operational visibility.",
@@ -589,6 +595,7 @@ export default function Home() {
           <a href="#services">Services</a>
           <Link href="/products">Products</Link>
           <Link href="/blogs">Blogs</Link>
+          <Link href="/careers">Careers</Link>
           <a href="#support">Support</a>
           <Link href="/contact">Contact</Link>
         </div>
@@ -678,6 +685,11 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+                {product.href ? (
+                  <Link href={product.href} className="product-home-link">
+                    Open {product.name}
+                  </Link>
+                ) : null}
               </div>
               <div className="product-device">
                 <DeviceMockup device={product.device} name={product.name} />
@@ -748,6 +760,10 @@ export default function Home() {
             <ExternalLink />
             LinkedIn
           </a>
+          <Link href="/site-map">
+            <Globe2 />
+            Site map
+          </Link>
         </div>
         <span className="footer-location">Kozhikode and Wayanad, Kerala</span>
       </footer>

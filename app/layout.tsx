@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   keywords: seoKeywords,
   alternates: {
     canonical: absoluteUrl("/"),
+    types: {
+      "application/rss+xml": absoluteUrl("/rss.xml"),
+    },
   },
   authors: [{ name: brand.legalName, url: siteUrl }],
   creator: brand.legalName,

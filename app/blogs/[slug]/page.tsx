@@ -4,6 +4,7 @@ import {
   Clock3,
   ExternalLink,
   MessageSquareText,
+  Network,
   PenLine,
   TerminalSquare,
 } from "lucide-react";
@@ -34,6 +35,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: post.excerpt,
     alternates: {
       canonical: absoluteUrl(`/blogs/${post.slug}`),
+      types: {
+        "application/rss+xml": absoluteUrl("/rss.xml"),
+      },
     },
     authors: [{ name: post.author, url: absoluteUrl("/blogs") }],
     openGraph: {
@@ -105,6 +109,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           <Link href="/#services">Services</Link>
           <Link href="/products">Products</Link>
           <Link href="/blogs">Blogs</Link>
+          <Link href="/careers">Careers</Link>
           <Link href="/contact">Contact</Link>
         </div>
         <div className="nav-actions">
@@ -161,6 +166,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
               <ExternalLink />
               LinkedIn
             </a>
+            <Link href="/site-map">
+              <Network />
+              Site map
+            </Link>
           </aside>
 
           <div className="blog-article-content">
@@ -204,4 +213,3 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
     </main>
   );
 }
-

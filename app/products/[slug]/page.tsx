@@ -9,6 +9,7 @@ import {
   LineChart,
   LockKeyhole,
   MapPinned,
+  Network,
   Rocket,
   Smartphone,
   TerminalSquare,
@@ -176,6 +177,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <Link href="/#services">Services</Link>
           <Link href="/products">Products</Link>
           <Link href="/blogs">Blogs</Link>
+          <Link href="/careers">Careers</Link>
           <Link href="/#support">Support</Link>
           <Link href="/contact">Contact</Link>
         </div>
@@ -285,6 +287,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <ExternalLink />
             LinkedIn
           </a>
+          <Link href="/site-map">
+            <Network />
+            Site map
+          </Link>
         </div>
         <span className="footer-location">Kozhikode and Wayanad, Kerala</span>
       </footer>
