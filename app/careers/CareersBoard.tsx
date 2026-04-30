@@ -116,7 +116,7 @@ export function CareersBoard({ jobs, apiError = "" }: CareersBoardProps) {
 
       {apiError ? (
         <div className="career-board__empty">
-          <h2>Unable to load jobs.</h2>
+          <h2>Careers are temporarily unavailable.</h2>
           <p>{apiError}</p>
         </div>
       ) : filteredJobs.length ? (

@@ -49,7 +49,7 @@ function normalizedList(value: string[] | string | undefined) {
   if (Array.isArray(value)) return value.filter(Boolean);
   if (!value) return [];
   return value
-    .split(/\r?\n|•|-/)
+    .split(/\r?\n|\u2022|-/)
     .map((item) => item.trim())
     .filter(Boolean);
 }

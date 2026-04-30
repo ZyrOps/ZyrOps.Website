@@ -1,6 +1,7 @@
 const HRMS_BASE_URL = "https://hrms.zyrops.com";
 const HRMS_TENANT_ID = "9";
 const HRMS_API_KEY = process.env.HRMS_CAREERS_API_KEY;
+const RETRYABLE_STATUS_CODES = new Set([429, 500, 502, 503, 504]);
 
 export type CareerJob = {
   id: string;
@@ -47,7 +48,7 @@ function toList(value: unknown) {
   if (!text) return [];
 
   return text
-    .split(/\r?\n|•|-/)
+    .split(/\r?\n|\u2022|-/)
     .map((item) => item.trim())
     .filter(Boolean);
 }
@@ -92,20 +93,45 @@ async function requestCareersApi(path: "jobs.php" | "job.php", params?: Record<s
     url.searchParams.set(key, value);
   });
 
-  const response = await fetch(url, {
-    headers: {
-      "X-HRMS-API-Key": HRMS_API_KEY,
-    },
-    cache: "no-store",
-  });
+  let lastError = "";
 
-  const json = (await response.json()) as CareersApiResponse;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const response = await fetch(url, {
+      headers: {
+        Accept: "application/json",
+        "X-HRMS-API-Key": HRMS_API_KEY,
+      },
+      next: {
+        revalidate: 300,
+      },
+    });
 
-  if (!response.ok || !json.success) {
-    throw new Error(json.message || `HRMS careers API returned ${response.status}`);
+    const body = await response.text();
+    const contentType = response.headers.get("content-type") || "";
+    const isJson = contentType.includes("application/json") || body.trim().startsWith("{");
+
+    if (!isJson) {
+      lastError = RETRYABLE_STATUS_CODES.has(response.status)
+        ? "HRMS careers service is temporarily busy. Please try again shortly."
+        : `HRMS careers service returned ${response.status || "an unexpected response"}.`;
+    } else {
+      const json = JSON.parse(body) as CareersApiResponse;
+
+      if (response.ok && json.success) {
+        return json;
+      }
+
+      lastError = json.message || `HRMS careers API returned ${response.status}`;
+    }
+
+    if (!RETRYABLE_STATUS_CODES.has(response.status) || attempt === 2) {
+      break;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 350 * (attempt + 1)));
   }
 
-  return json;
+  throw new Error(lastError || "Unable to load careers right now.");
 }
 
 export async function getCareerJobs() {
