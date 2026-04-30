@@ -13,16 +13,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BlogComments from "./comments";
-import { blogPosts, getBlogPost, getRelatedPosts } from "../blog-data";
+import { getBlogPost, getBlogPosts } from "../blog-api";
 import { absoluteUrl, brand, jsonLdScript } from "../../lib/seo";
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  let post: Awaited<ReturnType<typeof getBlogPost>> = null;
+
+  try {
+    post = await getBlogPost(slug);
+  } catch {
+    post = null;
+  }
 
   if (!post) {
     return {
@@ -45,10 +49,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: post.excerpt,
       url: absoluteUrl(`/blogs/${post.slug}`),
       type: "article",
-      publishedTime: post.postedOn,
-      modifiedTime: post.updatedOn,
+      publishedTime: post.publishedAt || undefined,
+      modifiedTime: post.updatedAt || undefined,
       authors: [post.author],
-      tags: post.hashtags,
+      tags: post.tags,
       images: [{ url: post.poster, width: 1200, height: 720, alt: post.posterAlt }],
     },
     twitter: {
@@ -62,13 +66,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  let post: Awaited<ReturnType<typeof getBlogPost>> = null;
+
+  try {
+    post = await getBlogPost(slug);
+  } catch {
+    notFound();
+  }
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(slug);
+  let relatedPosts: Awaited<ReturnType<typeof getBlogPosts>> = [];
+
+  try {
+    relatedPosts = (await getBlogPosts({ category: post.categorySlug, limit: 4 })).filter((item) => item.slug !== slug);
+  } catch {
+    relatedPosts = [];
+  }
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -76,8 +93,8 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
     headline: post.title,
     description: post.excerpt,
     image: absoluteUrl(post.poster),
-    datePublished: post.postedOn,
-    dateModified: post.updatedOn,
+    datePublished: post.publishedAt || undefined,
+    dateModified: post.updatedAt || post.publishedAt || undefined,
     author: {
       "@type": "Organization",
       name: post.author,
@@ -92,7 +109,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
       },
     },
     mainEntityOfPage: absoluteUrl(`/blogs/${post.slug}`),
-    keywords: post.hashtags.join(", "),
+    keywords: post.tags.join(", "),
   };
 
   return (
@@ -131,17 +148,19 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 <PenLine />
                 {post.author}
               </span>
-              <time dateTime={post.postedOn}>
-                <CalendarDays />
-                {post.postedOn}
-              </time>
+              {post.publishedAt ? (
+                <time dateTime={post.publishedAt}>
+                  <CalendarDays />
+                  {post.publishedAt}
+                </time>
+              ) : null}
               <span>
                 <Clock3 />
                 {post.readTime}
               </span>
             </div>
             <div className="blog-card__tags">
-              {post.hashtags.map((tag) => (
+              {post.tags.map((tag) => (
                 <span key={tag}>#{tag}</span>
               ))}
             </div>
@@ -173,42 +192,37 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           </aside>
 
           <div className="blog-article-content">
-            {post.sections.map((section) => (
-              <section key={section.heading}>
-                <h2>{section.heading}</h2>
-                {section.body.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                {section.image ? (
-                  <figure>
-                    <Image src={section.image} alt={section.imageAlt ?? section.heading} width={1200} height={720} />
-                    <figcaption>{section.imageAlt ?? section.heading}</figcaption>
-                  </figure>
-                ) : null}
+            {post.contentHtml ? (
+              <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+            ) : (
+              <section>
+                <p>{post.excerpt}</p>
               </section>
-            ))}
+            )}
           </div>
         </div>
       </article>
 
-      <section className="related-blog-section">
-        <div className="section-heading">
-          <p>Related reading</p>
-          <h2>More ZyrOps notes for builders and operators.</h2>
-        </div>
-        <div className="related-blog-grid">
-          {relatedPosts.map((related) => (
-            <Link href={`/blogs/${related.slug}`} className="related-blog-card" key={related.slug}>
-              <Image src={related.poster} alt={related.posterAlt} width={420} height={252} />
-              <span>{related.category}</span>
-              <h3>{related.title}</h3>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {relatedPosts.length ? (
+        <section className="related-blog-section">
+          <div className="section-heading">
+            <p>Related reading</p>
+            <h2>More ZyrOps notes for builders and operators.</h2>
+          </div>
+          <div className="related-blog-grid">
+            {relatedPosts.map((related) => (
+              <Link href={`/blogs/${related.slug}`} className="related-blog-card" key={related.slug}>
+                <Image src={related.poster} alt={related.posterAlt} width={420} height={252} />
+                <span>{related.category}</span>
+                <h3>{related.title}</h3>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <div id="comments">
-        <BlogComments initialComments={post.comments} />
+        <BlogComments initialComments={[]} />
       </div>
     </main>
   );

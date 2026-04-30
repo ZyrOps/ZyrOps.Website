@@ -3,8 +3,10 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import BlogList from "./blog-list";
-import { blogCategories, blogPosts, blogTags } from "./blog-data";
+import { getBlogCategories, getBlogPosts, getBlogTags } from "./blog-api";
 import { absoluteUrl } from "../lib/seo";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Blog | ZyrOps Engineering Notes",
@@ -32,7 +34,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogsPage() {
+export default async function BlogsPage() {
+  let posts: Awaited<ReturnType<typeof getBlogPosts>> = [];
+  let categories: Awaited<ReturnType<typeof getBlogCategories>> = [];
+  let tags: Awaited<ReturnType<typeof getBlogTags>> = [];
+  let apiError = "";
+
+  try {
+    [posts, categories, tags] = await Promise.all([getBlogPosts({ limit: 50 }), getBlogCategories(), getBlogTags(100)]);
+  } catch (error) {
+    apiError = error instanceof Error ? error.message : "Unable to load blogs right now.";
+  }
+
   return (
     <main className="site-shell blog-shell" data-theme="dark">
       <nav className="nav contact-nav">
@@ -58,7 +71,14 @@ export default function BlogsPage() {
       </nav>
 
       <section id="blog-list" className="blog-list-section blog-list-section--first">
-        <BlogList posts={blogPosts} categories={blogCategories} tags={blogTags} />
+        {apiError ? (
+          <div className="blog-empty">
+            <h2>Blogs are temporarily unavailable.</h2>
+            <p>{apiError}</p>
+          </div>
+        ) : (
+          <BlogList posts={posts} categories={categories} tags={tags} />
+        )}
       </section>
 
       <footer className="footer contact-footer">

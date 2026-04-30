@@ -3,6 +3,9 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { absoluteUrl, brand, indexableRoutes } from "../lib/seo";
+import { getBlogPosts } from "../blogs/blog-api";
+
+export const dynamic = "force-dynamic";
 
 const routeLabels: Record<string, string> = {
   "/": "ZyrOps home",
@@ -10,10 +13,6 @@ const routeLabels: Record<string, string> = {
   "/blogs": "Blogs",
   "/careers": "Careers",
   "/site-map": "Site map",
-  "/blogs/ai-saas-from-idea-to-operations": "AI SaaS from idea to stable operations",
-  "/blogs/hr-crm-pos-ai-suite-for-growing-businesses": "HR, CRM, and POS AI suite",
-  "/blogs/choosing-rust-golang-python-for-backend-systems": "Rust, GoLang, or Python backend systems",
-  "/blogs/ai-support-and-enterprise-employee-tracking": "AI support and enterprise employee tracking",
   "/contact": "Contact",
   "/products/zyrohr": "ZyroHR",
   "/products/zyrocrm": "ZyroCRM",
@@ -27,10 +26,6 @@ const routeDescriptions: Record<string, string> = {
   "/blogs": "Engineering and operations articles from the ZyrOps team.",
   "/careers": "Open roles from the ZyrOps HRMS careers board.",
   "/site-map": "Plain HTML crawl map for important public pages.",
-  "/blogs/ai-saas-from-idea-to-operations": "Building AI SaaS products from demo to production operations.",
-  "/blogs/hr-crm-pos-ai-suite-for-growing-businesses": "Why HRMS, CRM, and POS need one operating mindset.",
-  "/blogs/choosing-rust-golang-python-for-backend-systems": "Choosing Rust, GoLang, or Python for production backend systems.",
-  "/blogs/ai-support-and-enterprise-employee-tracking": "Shared visibility for AI support and field workforce tracking.",
   "/contact": "Email, phone, social links, and project intake details.",
   "/products/zyrohr": "AI-powered HRMS for attendance, payroll, approvals, and employee records.",
   "/products/zyrocrm": "AI-powered CRM for leads, pipelines, accounts, and follow-ups.",
@@ -59,8 +54,31 @@ function routeGroup(path: string) {
   return "Core Pages";
 }
 
-export default function SiteMapPage() {
-  const groups = indexableRoutes.reduce<Record<string, typeof indexableRoutes>>((acc, route) => {
+type SiteMapRoute = (typeof indexableRoutes)[number] & {
+  title?: string;
+  description?: string;
+};
+
+export default async function SiteMapPage() {
+  let routes: SiteMapRoute[] = [...indexableRoutes];
+
+  try {
+    const posts = await getBlogPosts({ limit: 50 });
+    routes = [
+      ...routes,
+      ...posts.map((post) => ({
+        path: `/blogs/${post.slug}`,
+        priority: 0.75,
+        changeFrequency: "weekly" as const,
+        title: post.title,
+        description: post.excerpt,
+      })),
+    ];
+  } catch {
+    routes = [...indexableRoutes];
+  }
+
+  const groups = routes.reduce<Record<string, SiteMapRoute[]>>((acc, route) => {
     const group = routeGroup(route.path);
     acc[group] = [...(acc[group] ?? []), route];
     return acc;
@@ -109,8 +127,8 @@ export default function SiteMapPage() {
               {routes.map((route) => (
                 <Link href={route.path} className="site-map-card" key={route.path}>
                   <Network />
-                  <span>{routeLabels[route.path] ?? route.path}</span>
-                  <p>{routeDescriptions[route.path] ?? absoluteUrl(route.path)}</p>
+                  <span>{route.title ?? routeLabels[route.path] ?? route.path}</span>
+                  <p>{route.description ?? routeDescriptions[route.path] ?? absoluteUrl(route.path)}</p>
                 </Link>
               ))}
             </div>

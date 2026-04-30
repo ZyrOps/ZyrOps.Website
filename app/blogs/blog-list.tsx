@@ -4,20 +4,20 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { BlogPost } from "./blog-data";
+import type { BlogOption, BlogPostSummary } from "./blog-api";
 
 export default function BlogList({
   posts,
   categories,
   tags,
 }: {
-  posts: BlogPost[];
-  categories: string[];
-  tags: string[];
+  posts: BlogPostSummary[];
+  categories: BlogOption[];
+  tags: BlogOption[];
 }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All");
-  const [activeTag, setActiveTag] = useState("All");
+  const [category, setCategory] = useState("all");
+  const [activeTag, setActiveTag] = useState("all");
 
   const filteredPosts = useMemo(() => {
     const search = query.trim().toLowerCase();
@@ -25,12 +25,12 @@ export default function BlogList({
     return posts.filter((post) => {
       const matchesSearch =
         !search ||
-        [post.title, post.excerpt, post.category, post.author, ...post.hashtags]
+        [post.title, post.excerpt, post.category, post.author, ...post.tags]
           .join(" ")
           .toLowerCase()
           .includes(search);
-      const matchesCategory = category === "All" || post.category === category;
-      const matchesTag = activeTag === "All" || post.hashtags.includes(activeTag);
+      const matchesCategory = category === "all" || post.categorySlug === category;
+      const matchesTag = activeTag === "all" || post.tagSlugs.includes(activeTag);
 
       return matchesSearch && matchesCategory && matchesTag;
     });
@@ -38,8 +38,8 @@ export default function BlogList({
 
   function resetFilters() {
     setQuery("");
-    setCategory("All");
-    setActiveTag("All");
+    setCategory("all");
+    setActiveTag("all");
   }
 
   return (
@@ -56,33 +56,36 @@ export default function BlogList({
         </label>
         <div className="blog-filter-row" aria-label="Category filters">
           <SlidersHorizontal />
+          <button type="button" className={category === "all" ? "is-active" : ""} onClick={() => setCategory("all")}>
+            All
+          </button>
           {categories.map((item) => (
             <button
               type="button"
-              key={item}
-              className={category === item ? "is-active" : ""}
-              onClick={() => setCategory(item)}
+              key={item.slug}
+              className={category === item.slug ? "is-active" : ""}
+              onClick={() => setCategory(item.slug)}
             >
-              {item}
+              {item.name}
             </button>
           ))}
         </div>
         <div className="blog-tag-filter" aria-label="Hashtag filters">
           <button
             type="button"
-            className={activeTag === "All" ? "is-active" : ""}
-            onClick={() => setActiveTag("All")}
+            className={activeTag === "all" ? "is-active" : ""}
+            onClick={() => setActiveTag("all")}
           >
             #All
           </button>
           {tags.map((tag) => (
             <button
               type="button"
-              key={tag}
-              className={activeTag === tag ? "is-active" : ""}
-              onClick={() => setActiveTag(tag)}
+              key={tag.slug}
+              className={activeTag === tag.slug ? "is-active" : ""}
+              onClick={() => setActiveTag(tag.slug)}
             >
-              #{tag}
+              #{tag.name}
             </button>
           ))}
         </div>
@@ -93,7 +96,7 @@ export default function BlogList({
           <p>
             Showing <strong>{filteredPosts.length}</strong> of <strong>{posts.length}</strong> posts
           </p>
-          {(query || category !== "All" || activeTag !== "All") && (
+          {(query || category !== "all" || activeTag !== "all") && (
             <button type="button" onClick={resetFilters}>
               <X />
               Clear filters
@@ -106,7 +109,7 @@ export default function BlogList({
             {filteredPosts.map((post, index) => (
               <Link
                 href={`/blogs/${post.slug}`}
-                className={`blog-card${post.featured ? " is-featured" : ""}`}
+                className={`blog-card${index === 0 ? " is-featured" : ""}`}
                 key={post.slug}
                 style={{ animationDelay: `${index * 70}ms` }}
               >
@@ -121,13 +124,13 @@ export default function BlogList({
                   <h2>{post.title}</h2>
                   <p>{post.excerpt}</p>
                   <div className="blog-card__tags">
-                    {post.hashtags.slice(0, 4).map((tag) => (
+                    {post.tags.slice(0, 4).map((tag) => (
                       <span key={tag}>#{tag}</span>
                     ))}
                   </div>
                   <div className="blog-card__footer">
                     <span>Posted by {post.author}</span>
-                    <time dateTime={post.postedOn}>{post.postedOn}</time>
+                    {post.publishedAt ? <time dateTime={post.publishedAt}>{post.publishedAt}</time> : null}
                   </div>
                 </div>
               </Link>
@@ -146,4 +149,3 @@ export default function BlogList({
     </>
   );
 }
-

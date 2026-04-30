@@ -1,4 +1,4 @@
-import { blogPosts } from "../blogs/blog-data";
+import { getBlogPosts } from "../blogs/blog-api";
 import { absoluteUrl, brand } from "../lib/seo";
 
 function escapeXml(value: string) {
@@ -10,8 +10,16 @@ function escapeXml(value: string) {
     .replace(/'/g, "&apos;");
 }
 
-export function GET() {
-  const items = blogPosts
+export async function GET() {
+  let posts: Awaited<ReturnType<typeof getBlogPosts>> = [];
+
+  try {
+    posts = await getBlogPosts({ limit: 50 });
+  } catch {
+    posts = [];
+  }
+
+  const items = posts
     .map((post) => {
       const url = absoluteUrl(`/blogs/${post.slug}`);
 
@@ -23,7 +31,7 @@ export function GET() {
       <description>${escapeXml(post.excerpt)}</description>
       <author>${escapeXml(brand.email)} (${escapeXml(post.author)})</author>
       <category>${escapeXml(post.category)}</category>
-      <pubDate>${new Date(post.postedOn).toUTCString()}</pubDate>
+      ${post.publishedAt ? `<pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>` : ""}
     </item>`;
     })
     .join("");
