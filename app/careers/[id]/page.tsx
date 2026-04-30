@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   ExternalLink,
   MapPin,
-  Network,
   TerminalSquare,
 } from "lucide-react";
 import Image from "next/image";
@@ -121,9 +120,9 @@ export default async function CareerDetailPage({ params }: Params) {
 
       <article className="career-detail">
         <header className="career-detail-hero">
-          <p className="hero-kicker">{job.department || "ZyrOps Careers"}</p>
+          <p>{job.department || "ZyrOps Careers"}</p>
           <h1>{job.title}</h1>
-          <span>{job.description || "A live role from the ZyrOps HRMS careers board."}</span>
+          {job.description ? <span>{job.description}</span> : null}
           <div className="careers-job-meta">
             {job.location ? (
               <span>
@@ -157,10 +156,7 @@ export default async function CareerDetailPage({ params }: Params) {
 
         <div className="career-detail-grid">
           <section>
-            <div className="section-heading">
-              <p>Responsibilities</p>
-              <h2>What this role owns.</h2>
-            </div>
+            <h2>Responsibilities</h2>
             <div className="career-list-panel">
               {responsibilities.length ? (
                 responsibilities.map((item) => (
@@ -179,10 +175,7 @@ export default async function CareerDetailPage({ params }: Params) {
           </section>
 
           <section>
-            <div className="section-heading">
-              <p>Requirements</p>
-              <h2>What helps you succeed.</h2>
-            </div>
+            <h2>Requirements</h2>
             <div className="career-list-panel">
               {requirements.length ? (
                 requirements.map((item) => (
@@ -202,22 +195,6 @@ export default async function CareerDetailPage({ params }: Params) {
         </div>
       </article>
 
-      <footer className="footer contact-footer">
-        <div className="footer-grain" aria-hidden />
-        <p>Careers</p>
-        <h2>Bring proof of work and ownership.</h2>
-        <div className="footer-actions">
-          <Link href="/careers">
-            <BriefcaseBusiness />
-            Open roles
-          </Link>
-          <Link href="/site-map">
-            <Network />
-            Site map
-          </Link>
-        </div>
-        <span className="footer-location">Kozhikode and Wayanad, Kerala</span>
-      </footer>
     </main>
   );
 }
