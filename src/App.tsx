@@ -8,6 +8,7 @@ import { CareersPage } from './pages/CareersPage'
 import { JobDetailPage } from './pages/JobDetailPage'
 import { ProductsPage } from './pages/ProductsPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 
 function ScrollManager() {
   const location = useLocation()
@@ -38,6 +39,7 @@ function AppShell() {
           <Route path="/products/:slug" element={<ProductDetailPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/careers/:id" element={<JobDetailPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />

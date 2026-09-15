@@ -60,4 +60,5 @@ export const ILLUSTRATIONS = {
   agreement: '/illustrations/agreement.svg',
   collaboration: '/illustrations/real-time-collaboration.svg',
   analytics: '/illustrations/analytics.svg',
+  notFound: '/illustrations/page-not-found.svg',
 } as const

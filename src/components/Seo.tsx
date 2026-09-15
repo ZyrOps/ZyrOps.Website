@@ -6,6 +6,7 @@ type Props = {
   description?: string
   keywords?: string[]
   path?: string
+  noIndex?: boolean
 }
 
 function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
@@ -18,7 +19,7 @@ function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   el.content = content
 }
 
-export function Seo({ title, description, keywords, path = '/' }: Props) {
+export function Seo({ title, description, keywords, path = '/', noIndex = false }: Props) {
   useEffect(() => {
     const fullTitle = title || SITE_SEO.defaultTitle
     const desc = description || SITE_SEO.defaultDescription
@@ -28,6 +29,7 @@ export function Seo({ title, description, keywords, path = '/' }: Props) {
     document.title = fullTitle
     upsertMeta('name', 'description', desc)
     upsertMeta('name', 'keywords', keys)
+    upsertMeta('name', 'robots', noIndex ? 'noindex, nofollow' : 'index, follow')
     upsertMeta('property', 'og:title', fullTitle)
     upsertMeta('property', 'og:description', desc)
     upsertMeta('property', 'og:url', url)
@@ -44,7 +46,7 @@ export function Seo({ title, description, keywords, path = '/' }: Props) {
       document.head.appendChild(canonical)
     }
     canonical.href = url
-  }, [title, description, keywords, path])
+  }, [title, description, keywords, path, noIndex])
 
   return null
 }
