@@ -48,7 +48,7 @@ export function Footer() {
         </nav>
       </div>
       <div className="container-page mt-10 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted sm:flex-row sm:justify-between">
-        <p>© {new Date().getFullYear()} ZyrOps LLP</p>
+        <p>© {new Date().getFullYear()} ZyrOps Technologies LLP</p>
         <p>Engineer Better. Operate Smarter. Grow Further.</p>
       </div>
     </footer>

@@ -658,19 +658,41 @@ export function getProductsByCategory(category: ProductCategory): Product[] {
 
 export const SITE_SEO = {
   siteName: 'ZyrOps',
+  legalName: 'ZyrOps Technologies LLP',
   siteUrl: 'https://zyrops.com',
-  defaultTitle: 'ZyrOps — Complete Enterprise SaaS Suite | Operational Intelligence',
+  locale: 'en_IN',
+  ogImage: 'https://zyrops.com/zyropsfull.png',
+  defaultTitle:
+    'ZyrOps Technologies LLP — Complete Enterprise SaaS Suite | Operational Intelligence',
   defaultDescription:
-    'ZyrOps Technologies offers 12+ integrated enterprise SaaS platforms spanning HRMS, CRM, POS, LMS, fleet, productivity, and AI — one unified ecosystem.',
+    'ZyrOps Technologies LLP builds 12+ integrated enterprise SaaS platforms — HRMS, CRM, POS, LMS, fleet, productivity, and AI — one unified operational intelligence ecosystem.',
+  productsTitle:
+    'Enterprise SaaS Products — HRMS, CRM, POS, LMS & AI | ZyrOps Technologies LLP',
+  productsDescription:
+    'Explore the full ZyrOps Technologies LLP product suite: ZyroHR, ZyroCRM, ZyroPOS, ZyroLearn, ZyroAgent, and more — integrated platforms for modern operations.',
   keywords: [
-    'enterprise SaaS suite',
+    'ZyrOps Technologies LLP',
+    'ZyrOps Technologies',
+    'enterprise SaaS suite India',
     'operational intelligence engineering',
     'integrated enterprise software platform',
     'AI powered business operations software',
     'HRMS CRM POS LMS suite',
     'multi deployment SaaS PaaS mobile desktop',
     'enterprise digital transformation platform',
-    'ZyrOps Technologies',
     'unified business operations ecosystem',
+    'ZyroHR',
+    'ZyroCRM',
+    'ZyroPOS',
+    'ZyroLearn',
+    'ZyroAgent',
   ],
+  address: {
+    street: 'Uthradam Building, Kuttikattoor',
+    locality: 'Calicut',
+    region: 'Kerala',
+    country: 'IN',
+  },
+  email: 'hello@zyrops.com',
+  phone: '+91-94887-66222',
 }

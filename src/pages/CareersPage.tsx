@@ -45,9 +45,9 @@ export function CareersPage() {
   return (
     <div className="pt-28 sm:pt-32">
       <Seo
-        title="Careers — Join ZyrOps | Operational Intelligence Engineering"
-        description="Explore open roles at ZyrOps Technologies. Engineer intelligent operational ecosystems with clarity, reliability, and measurable outcomes."
-        keywords={['ZyrOps careers', 'enterprise SaaS jobs', 'software engineering jobs Kerala']}
+        title="Careers — Join ZyrOps Technologies LLP | Operational Intelligence Engineering"
+        description="Explore open roles at ZyrOps Technologies LLP. Engineer intelligent operational ecosystems with clarity, reliability, and measurable outcomes."
+        keywords={['ZyrOps careers', 'ZyrOps Technologies LLP careers', 'enterprise SaaS jobs', 'software engineering jobs Kerala']}
         path="/careers"
       />
 

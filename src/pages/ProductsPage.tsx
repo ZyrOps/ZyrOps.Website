@@ -31,8 +31,8 @@ export function ProductsPage() {
   return (
     <div className="pt-28 sm:pt-32">
       <Seo
-        title={SITE_SEO.defaultTitle}
-        description={SITE_SEO.defaultDescription}
+        title={SITE_SEO.productsTitle}
+        description={SITE_SEO.productsDescription}
         keywords={SITE_SEO.keywords}
         path="/products"
       />
