@@ -153,7 +153,7 @@ export function ProductDetailPage() {
           </div>
 
           {knowledge ? (
-            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            <div className="mt-10 grid gap-6 lg:grid-cols-3">
               <div className="rounded-[20px] border border-line bg-bg p-6">
                 <p className="text-sm font-semibold text-accent">Core platform capabilities</p>
                 <ul className="mt-4 space-y-3 text-sm text-muted">
@@ -165,6 +165,20 @@ export function ProductDetailPage() {
                   ))}
                 </ul>
               </div>
+
+              {knowledge.modules?.length ? (
+                <div className="rounded-[20px] border border-line bg-bg p-6">
+                  <p className="text-sm font-semibold text-accent">Key modules</p>
+                  <ul className="mt-4 space-y-3 text-sm text-muted">
+                    {knowledge.modules.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
 
               <div className="rounded-[20px] border border-line bg-bg p-6">
                 <p className="text-sm font-semibold text-accent">AI and automation features</p>

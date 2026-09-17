@@ -72,13 +72,13 @@ export const products: Product[] = [
     category: 'core',
     categoryLabel: 'HRMS',
     summary:
-      'Full-featured HRMS with a virtual HR assistant and AI chatbot for intelligent workforce management.',
+      'Web and mobile HRMS with AI recruitment, employee support, performance analysis, and autonomous workflow assistance.',
     description:
-      'ZyroHR helps organizations manage attendance, payroll, leave, employee records, and HR workflows in one connected platform. AI-assisted support reduces repetitive HR work while keeping people in control of critical decisions.',
+      'ZyroHR unifies employee records, attendance, leave, payroll, and recruitment across web and mobile. Its AI HR capabilities help teams collect and process resumes, answer employee questions through an HR chatbot, analyze performance signals, and automate repetitive HR workflows while HR leaders retain control of critical people decisions.',
     highlights: [
-      'Virtual HR assistant & AI chatbot',
-      'Attendance, payroll & leave workflows',
-      'Employee self-service and approvals',
+      'AI recruitment and resume processing',
+      'AI HR chatbot and autonomous HR workflows',
+      'Mobile employee self-service, attendance, leave, and payroll',
     ],
     features: [
       {
@@ -86,12 +86,12 @@ export const products: Product[] = [
         body: 'Centralize employee records, attendance, leave, and payroll approvals in one secure HRMS.',
       },
       {
-        title: 'AI-assisted HR support',
-        body: 'Virtual HR assistant and chatbot help teams resolve common requests faster.',
+        title: 'AI recruitment and HR support',
+        body: 'Collect and process resumes, support candidate workflows, and resolve employee questions with an AI HR chatbot.',
       },
       {
-        title: 'Workforce visibility',
-        body: 'Give leaders clearer insight into workforce signals without spreadsheet chaos.',
+        title: 'Autonomous insights with human control',
+        body: 'Use AI-assisted performance analysis and workflow automation to surface workforce signals while HR teams keep decision authority.',
       },
     ],
     keywords: [
@@ -102,10 +102,14 @@ export const products: Product[] = [
       'payroll and attendance software',
       'employee self service portal',
       'virtual HR assistant',
+      'AI recruitment software',
+      'resume screening and processing software',
+      'employee performance analytics',
+      'mobile HRMS app',
     ],
-    seoTitle: 'ZyroHR — AI-Powered Enterprise HRMS | ZyrOps',
+    seoTitle: 'ZyroHR — Mobile AI HRMS, Recruitment & Performance Platform | ZyrOps',
     seoDescription:
-      'ZyroHR is an AI-powered HRMS with virtual HR assistant, attendance, payroll, leave, and workforce management for growing enterprises.',
+      'ZyroHR is a web and mobile AI HRMS for recruitment, resume processing, employee chatbot support, performance analysis, attendance, payroll, and leave.',
     illustration: ILLUSTRATIONS.demo,
   },
   {
@@ -240,26 +244,26 @@ export const products: Product[] = [
     category: 'operations',
     categoryLabel: 'Fleet management',
     summary:
-      'Real-time fleet management and tracking for logistics and field operations.',
+      'Fleet operations software for route planning, dispatch, driver accountability, pickups, settlements, and delivery visibility.',
     description:
-      'ZyroFleet gives logistics and field teams live visibility into vehicles, routes, and operational status — helping organizations coordinate movement with greater control.',
+      'ZyroFleet is built for organizations that need to manage vehicles, drivers, dispatch activity, route execution, pickups, returns, settlements, and operational reporting from one control layer. It gives fleet and field teams real visibility into movement, accountability, and financial performance across daily operations.',
     highlights: [
-      'Real-time fleet tracking',
-      'Logistics and field operations',
-      'Operational route visibility',
+      'Live dispatch and route visibility',
+      'Driver and crew accountability tracking',
+      'Pickup, return, and settlement controls',
     ],
     features: [
       {
-        title: 'Live fleet tracking',
-        body: 'Monitor vehicles and field assets with real-time operational awareness.',
+        title: 'Live dispatch operations',
+        body: 'Monitor routes, assignments, and execution status in real time so field teams stay coordinated.',
       },
       {
-        title: 'Logistics coordination',
-        body: 'Support dispatch and field teams with clearer movement visibility.',
+        title: 'Route planning and accountability',
+        body: 'Assign jobs, track driver movement, and measure productivity across vehicles and teams.',
       },
       {
-        title: 'Operational control',
-        body: 'Reduce uncertainty across distributed fleet and field workflows.',
+        title: 'Financial and operational reporting',
+        body: 'Capture settlements, missed visits, deliveries, and profit/loss signals without spreadsheet cleanup.',
       },
     ],
     keywords: [
@@ -268,10 +272,13 @@ export const products: Product[] = [
       'logistics fleet tracking system',
       'field operations fleet software',
       'enterprise fleet management SaaS',
+      'dispatch route planning software',
+      'pickup and return fleet operations',
+      'fleet settlement and profit reporting',
     ],
-    seoTitle: 'ZyroFleet — Real-Time Fleet Management Software | ZyrOps',
+    seoTitle: 'ZyroFleet — Dispatch, Route & Fleet Operations Platform | ZyrOps',
     seoDescription:
-      'ZyroFleet provides real-time fleet management and tracking for logistics teams and field operations.',
+      'ZyroFleet manages dispatch, route planning, live tracking, pickups, settlements, and fleet reporting for modern logistics and field operations.',
     illustration: ILLUSTRATIONS.cloud,
   },
   {
@@ -445,26 +452,26 @@ export const products: Product[] = [
     category: 'retail',
     categoryLabel: 'Multi-retail POS',
     summary:
-      'Multi-business type POS with integrated identity service — adaptable across retail segments.',
+      'Multi-tenant POS and retail operations platform for supermarkets, cafes, restaurants, salons, and multi-branch businesses.',
     description:
-      'ZyroPOS brings powerful, flexible point-of-sale technology to retail businesses of every scale — from single counters to multi-format retail environments — with integrated identity service support.',
+      'ZyroPOS is the retail and hospitality operations layer from the NomadsCipher.POS system — built to manage the full commercial flow of business operations: tenant onboarding, branch administration, product and stock control, billing, tax settlement, invoicing, returns, reporting, and business-specific modules for hospitality and retail brands.',
     highlights: [
-      'Multi-business retail POS',
-      'Integrated identity service',
-      'Adaptable across retail segments',
+      'Multi-tenant POS for retail and hospitality',
+      'Inventory, billing, and settlement controls',
+      'Business-specific modules for cafes, restaurants, salons, and supermarkets',
     ],
     features: [
       {
-        title: 'Flexible retail POS',
-        body: 'Adapt checkout and retail workflows across different business types.',
+        title: 'Multi-business retail operations',
+        body: 'Run different retail and service models from the same platform while keeping each branch and tenant separate.',
       },
       {
-        title: 'Identity-aware operations',
-        body: 'Use integrated identity services to support secure retail workflows.',
+        title: 'Stock, sales, and daily collections',
+        body: 'Manage product movement, sale records, returns, and daily collections without fragmented admin work.',
       },
       {
-        title: 'Enterprise retail readiness',
-        body: 'Scale from single outlets to multi-format retail environments.',
+        title: 'Branch-ready workflows',
+        body: 'Support cashier operations, invoices, customer billing, and management reporting across distributed outlets.',
       },
     ],
     keywords: [
@@ -474,10 +481,13 @@ export const products: Product[] = [
       'cloud POS for retail',
       'identity integrated POS',
       'multi format retail billing software',
+      'restaurant POS software',
+      'supermarket POS',
+      'multi-tenant retail management',
     ],
-    seoTitle: 'ZyroPOS — Multi-Business Retail POS Platform | ZyrOps',
+    seoTitle: 'ZyroPOS — Multi-Tenant Retail & Hospitality POS Platform | ZyrOps',
     seoDescription:
-      'ZyroPOS is a flexible multi-business POS platform with integrated identity service for retail businesses of every scale.',
+      'ZyroPOS is a multi-tenant POS platform for supermarkets, restaurants, cafes, salons, and branch-based retail businesses with billing, stock, and settlement controls.',
     illustration: ILLUSTRATIONS.demo,
   },
   {
@@ -529,26 +539,26 @@ export const products: Product[] = [
     category: 'creative',
     categoryLabel: 'Design operations',
     summary:
-      'A comprehensive platform for managing print and design business operations — from client briefs to production workflows.',
+      'Print and design operations platform for job intake, scheduling, delivery tracking, billing, and studio production control.',
     description:
-      'ZyroStudio gives creative and print businesses an operational backbone — connecting client briefs, production workflows, and delivery so studios can scale with clarity.',
+      'ZyroStudio brings the operational structure behind print and design businesses: portfolio management, work orders, production schedules, van transfer and delivery workflows, support tracking, settlements, and billing queues. It turns fragmented studio work into a visible production pipeline from intake to completion.',
     highlights: [
-      'Client brief to production flow',
-      'Print & design operations',
-      'Scalable creative business backbone',
+      'Job intake and portfolio workflows',
+      'Production scheduling and session visibility',
+      'Delivery, transfer, and settlement tracking',
     ],
     features: [
       {
-        title: 'Brief-to-production workflows',
-        body: 'Organize creative jobs from intake through production with clearer ownership.',
+        title: 'Studio job management',
+        body: 'Track projects, sessions, and production progress from client brief through completion.',
       },
       {
-        title: 'Print business operations',
-        body: 'Support design and print teams with practical operational structure.',
+        title: 'Print and delivery coordination',
+        body: 'Keep scheduling, fulfillment, van transfers, and delivery stages aligned with production output.',
       },
       {
-        title: 'Scale with clarity',
-        body: 'Give creative businesses the systems needed to grow without chaos.',
+        title: 'Operational visibility',
+        body: 'Give studios a clearer view of work orders, support issues, settlements, and billing flow.',
       },
     ],
     keywords: [
@@ -557,10 +567,12 @@ export const products: Product[] = [
       'creative business workflow software',
       'print production management system',
       'design agency operations SaaS',
+      'job scheduling for print studios',
+      'delivery and van transfer workflow software',
     ],
-    seoTitle: 'ZyroStudio — Print & Design Business Operations | ZyrOps',
+    seoTitle: 'ZyroStudio — Print & Design Production Operations | ZyrOps',
     seoDescription:
-      'ZyroStudio manages print and design business operations from client briefs to production workflows.',
+      'ZyroStudio manages print and design production from intake and scheduling to delivery, billing, and studio operations control.',
     illustration: ILLUSTRATIONS.building,
   },
   {
