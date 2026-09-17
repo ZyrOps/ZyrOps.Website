@@ -2,8 +2,11 @@ import 'dotenv/config'
 import cors from 'cors'
 import express from 'express'
 import nodemailer from 'nodemailer'
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { getPageSeo } from './seoMeta.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
@@ -58,6 +61,41 @@ function escapeHtml(value) {
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function decorateIndexHtml(rawHtml, pathname) {
+  const seo = getPageSeo(pathname)
+  const title = escapeHtml(seo.title)
+  const description = escapeHtml(seo.description)
+  const canonical = escapeHtml(seo.canonical)
+  const h1 = escapeHtml(seo.h1)
+
+  let html = rawHtml
+    .replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`)
+    .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" content="${description}" />`)
+    .replace(/<link\s+rel="canonical"[^>]*>/i, `<link rel="canonical" href="${canonical}" />`)
+
+  if (!html.includes('property="og:title"')) {
+    html = html.replace(
+      '</head>',
+      `  <meta property="og:title" content="${title}" />\n` +
+        `  <meta property="og:description" content="${description}" />\n` +
+        `  <meta property="og:url" content="${canonical}" />\n` +
+        `  <meta property="og:type" content="website" />\n` +
+        `  <meta name="twitter:title" content="${title}" />\n` +
+        `  <meta name="twitter:description" content="${description}" />\n` +
+        `</head>`,
+    )
+  }
+
+  if (!html.includes('<h1')) {
+    html = html.replace(
+      '</body>',
+      `<h1 style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">${h1}</h1>\n</body>`,
+    )
+  }
+
+  return html
 }
 
 function createTransport() {
@@ -228,6 +266,13 @@ app.post('/api/contact', async (req, res) => {
 if (isProd) {
   const distDir = path.join(rootDir, 'dist')
   app.use(express.static(distDir))
+
+  const distIndex = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8')
+
+  app.get(['/', '/products', '/products/:slug', '/careers', '/careers/:id'], (req, res) => {
+    res.type('html').send(decorateIndexHtml(distIndex, req.originalUrl))
+  })
+
   app.get(/.*/, (_req, res) => {
     res.sendFile(path.join(distDir, 'index.html'))
   })

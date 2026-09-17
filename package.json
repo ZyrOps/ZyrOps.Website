@@ -10,7 +10,8 @@
     "build": "tsc -b && vite build",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test server/seoMeta.test.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
