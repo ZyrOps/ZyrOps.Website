@@ -3,6 +3,7 @@ import { Reveal } from '../components/Reveal'
 import { Illustration } from '../components/Illustration'
 import { Seo } from '../components/Seo'
 import { getProduct, products } from '../data/products'
+import { PRODUCT_KNOWLEDGE } from '../data/productKnowledge'
 
 const productUseCases: Record<string, { audience: string[]; useCases: string[] }> = {
   zyrohr: {
@@ -67,6 +68,7 @@ export function ProductDetailPage() {
   const related = products.filter(
     (p) => p.category === product.category && p.slug !== product.slug,
   ).slice(0, 3)
+  const knowledge = PRODUCT_KNOWLEDGE[product.slug]
 
   return (
     <div className="pt-28 sm:pt-32">
@@ -94,6 +96,14 @@ export function ProductDetailPage() {
               {product.name}
             </h1>
             <p className="mt-4 text-lg font-medium text-ink/80">{product.tagline}</p>
+            <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
+              <span className="rounded-full border border-line bg-surface px-3 py-1.5">
+                Web: {knowledge?.web ?? 'Web platform'}
+              </span>
+              <span className="rounded-full border border-line bg-surface px-3 py-1.5">
+                Mobile: {knowledge?.mobile ?? 'Browser-first access'}
+              </span>
+            </div>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted text-pretty">
               {product.description}
             </p>
@@ -141,6 +151,34 @@ export function ProductDetailPage() {
               </Reveal>
             ))}
           </div>
+
+          {knowledge ? (
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              <div className="rounded-[20px] border border-line bg-bg p-6">
+                <p className="text-sm font-semibold text-accent">Core platform capabilities</p>
+                <ul className="mt-4 space-y-3 text-sm text-muted">
+                  {knowledge.coreFeatures.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-[20px] border border-line bg-bg p-6">
+                <p className="text-sm font-semibold text-accent">AI and automation features</p>
+                <ul className="mt-4 space-y-3 text-sm text-muted">
+                  {knowledge.aiFeatures.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 

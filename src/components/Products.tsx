@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Reveal } from './Reveal'
 import { ILLUSTRATIONS, Illustration } from './Illustration'
 import { products } from '../data/products'
+import { PRODUCT_KNOWLEDGE } from '../data/productKnowledge'
 
 const featured = products.filter((p) =>
   ['zyrohr', 'zyrocrm', 'zyropos', 'zyrolearn', 'zyrofleet', 'zyroagent'].includes(p.slug),
@@ -57,6 +58,10 @@ export function Products() {
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
                       {product.summary}
                     </p>
+                    <div className="mt-4 space-y-2 text-[11px] font-medium uppercase tracking-[0.12em] text-muted">
+                      <p>Web: {PRODUCT_KNOWLEDGE[product.slug]?.web ?? 'Web platform'}</p>
+                      <p>Mobile: {PRODUCT_KNOWLEDGE[product.slug]?.mobile ?? 'Browser-first access'}</p>
+                    </div>
                     <span className="mt-5 text-sm font-semibold text-ink/70 transition-colors group-hover:text-accent">
                       Explore →
                     </span>
