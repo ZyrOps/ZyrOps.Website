@@ -4,6 +4,49 @@ import { Illustration } from '../components/Illustration'
 import { Seo } from '../components/Seo'
 import { getProduct, products } from '../data/products'
 
+const productUseCases: Record<string, { audience: string[]; useCases: string[] }> = {
+  zyrohr: {
+    audience: ['HR teams', 'Operations leaders', 'Multi-location workforces'],
+    useCases: [
+      'Automate attendance, leave, payroll, and employee lifecycle workflows.',
+      'Give managers real-time visibility into workforce compliance and approval status.',
+      'Reduce repetitive HR admin with self-service tools and AI-assisted support.',
+    ],
+  },
+  zyrocrm: {
+    audience: ['Sales teams', 'Account managers', 'Customer success leaders'],
+    useCases: [
+      'Track leads, follow-ups, and sales pipelines without scattered spreadsheets.',
+      'Keep customer history and next actions visible across the entire revenue team.',
+      'Improve conversion with clearer pipeline visibility and faster follow-up cycles.',
+    ],
+  },
+  zyrofleet: {
+    audience: ['Logistics teams', 'Dispatch managers', 'Field operations leaders'],
+    useCases: [
+      'Monitor live vehicle movement, route performance, and delivery status in one view.',
+      'Coordinate dispatch, driver movement, and operational coverage across locations.',
+      'Reduce delays and improve operational decisions with real-time fleet insights.',
+    ],
+  },
+  zyrolearn: {
+    audience: ['L&D teams', 'Training managers', 'Enterprise learning programs'],
+    useCases: [
+      'Create and manage employee training programs with AI-assisted course workflows.',
+      'Track learner progress, assessments, and compliance across departments.',
+      'Scale onboarding and continuous learning across locations without complexity.',
+    ],
+  },
+  zyropos: {
+    audience: ['Retail operators', 'Multi-store managers', 'Business owners'],
+    useCases: [
+      'Support faster checkout across stores with one flexible POS workflow.',
+      'Track sales, stock, and billing across different retail formats from one platform.',
+      'Improve retail operations with clearer reporting and lower manual overhead.',
+    ],
+  },
+}
+
 export function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>()
   const product = slug ? getProduct(slug) : undefined
@@ -115,6 +158,53 @@ export function ProductDetailPage() {
           ))}
         </div>
       </section>
+
+      {productUseCases[product.slug] ? (
+        <section className="border-t border-line bg-surface py-16 sm:py-20">
+          <div className="container-page grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <Reveal>
+              <div>
+                <p className="text-sm font-semibold text-accent">Built for real business workflows</p>
+                <h2 className="mt-3 font-display text-3xl tracking-tight text-ink sm:text-4xl">
+                  Operational value for teams that scale
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-muted text-pretty">
+                  {product.name} helps organizations move faster by connecting people,
+                  process, and operational visibility into one practical workflow.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="rounded-[22px] border border-line bg-bg p-5">
+                  <h3 className="text-lg font-bold tracking-tight text-ink">Who it serves</h3>
+                  <ul className="mt-4 space-y-2 text-sm text-muted">
+                    {productUseCases[product.slug].audience.map((item) => (
+                      <li key={item} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-[22px] border border-line bg-bg p-5">
+                  <h3 className="text-lg font-bold tracking-tight text-ink">Common use cases</h3>
+                  <ul className="mt-4 space-y-2 text-sm text-muted">
+                    {productUseCases[product.slug].useCases.map((item) => (
+                      <li key={item} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
 
       {related.length ? (
         <section className="border-t border-line bg-surface py-16 sm:py-20">

@@ -14,13 +14,14 @@ export function Products() {
       <div className="container-page">
         <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-accent">Complete Enterprise SaaS Suite</p>
+            <p className="text-sm font-semibold text-accent">Enterprise SaaS platforms</p>
             <h2 className="mt-3 font-display text-4xl tracking-tight text-ink sm:text-5xl text-balance">
-              {products.length} integrated platforms. One unified ecosystem.
+              HRMS, CRM, POS, LMS, fleet and AI software for modern operations.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg text-pretty">
-              Covering HR, CRM, operations, retail, learning, and AI — deploy as
-              SaaS, PaaS, mobile, or desktop.
+              Covering workforce management, sales automation, retail checkout,
+              employee learning, fleet tracking, and AI-powered operations — all
+              deployable as SaaS, mobile, desktop, or custom enterprise workflows.
             </p>
           </div>
           <Link

@@ -21,7 +21,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3 py-1.5 text-xs font-semibold tracking-wide text-muted backdrop-blur"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Operational Intelligence Engineering
+            HRMS, CRM, POS, LMS, fleet and AI platforms
           </motion.p>
 
           <motion.h1
@@ -30,8 +30,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
             className="mt-6 font-display text-[clamp(2.75rem,7vw,5.25rem)] leading-[1.02] tracking-tight text-ink text-balance"
           >
-            Engineering intelligence.
-            <span className="block text-muted">Empowering growth.</span>
+            Enterprise software for
+            <span className="block text-muted">smarter operations.</span>
           </motion.h1>
 
           <motion.p
@@ -40,9 +40,9 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.14 }}
             className="mt-6 max-w-lg text-base leading-relaxed text-muted sm:text-lg text-pretty"
           >
-            We engineer intelligent operational ecosystems that simplify
-            complexity, automate workflows, and help organizations work smarter,
-            move faster, and scale with confidence.
+            ZyrOps builds intelligent HR, CRM, retail, learning, fleet, productivity,
+            and AI platforms that help organizations automate repetitive work,
+            reduce operational friction, and scale with more visibility.
           </motion.p>
 
           <motion.p
