@@ -269,7 +269,7 @@ if (isProd) {
 
   const distIndex = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8')
 
-  app.get(['/', '/products', '/products/:slug', '/careers', '/careers/:id'], (req, res) => {
+  app.get(['/', '/products', '/products/:slug', '/solutions/:slug', '/careers', '/careers/:id'], (req, res) => {
     res.type('html').send(decorateIndexHtml(distIndex, req.originalUrl))
   })
 

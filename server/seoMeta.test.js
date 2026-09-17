@@ -23,3 +23,15 @@ test('careers route metadata stays distinct from homepage', () => {
   assert.equal(meta.canonical, 'https://zyrops.com/careers')
   assert.equal(meta.h1, 'Engineer better. Grow with us.')
 })
+
+test('solution landing pages get route-specific metadata', () => {
+  const hrms = getPageSeo('/solutions/hrms-software')
+  assert.equal(hrms.title, 'HRMS Software for Attendance, Payroll and Employee Management | ZyrOps')
+  assert.equal(hrms.canonical, 'https://zyrops.com/solutions/hrms-software')
+  assert.equal(hrms.h1, 'HRMS software for smarter workforce operations')
+
+  const retail = getPageSeo('/solutions/retail-pos-software')
+  assert.equal(retail.title, 'Retail POS Software for Supermarkets and Multi-Store Operations | ZyrOps')
+  assert.equal(retail.canonical, 'https://zyrops.com/solutions/retail-pos-software')
+  assert.equal(retail.h1, 'Retail POS software for faster checkout and better control')
+})

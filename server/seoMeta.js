@@ -119,6 +119,30 @@ export function getPageSeo(pathname = '/') {
     }
   }
 
+  const solutionMeta = {
+    '/solutions/hrms-software': {
+      title: 'HRMS Software for Attendance, Payroll and Employee Management | ZyrOps',
+      description: 'Manage attendance, payroll, leave, and employee records in one HRMS platform built for modern enterprise operations.',
+      h1: 'HRMS software for smarter workforce operations',
+    },
+    '/solutions/retail-pos-software': {
+      title: 'Retail POS Software for Supermarkets and Multi-Store Operations | ZyrOps',
+      description: 'Modern POS software for supermarkets and multi-store retail teams that need faster checkout and clearer inventory visibility.',
+      h1: 'Retail POS software for faster checkout and better control',
+    },
+  }
+
+  if (solutionMeta[normalizedPath]) {
+    const item = solutionMeta[normalizedPath]
+    return {
+      title: item.title,
+      description: item.description,
+      h1: item.h1,
+      canonical: `${SITE_URL}${normalizedPath}`,
+      keywords: `${item.h1}, ${item.description}`,
+    }
+  }
+
   const careersMatch = normalizedPath.match(/^\/careers\/([^/]+)$/)
   if (careersMatch) {
     return {
