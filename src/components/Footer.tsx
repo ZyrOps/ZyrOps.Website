@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { ZyroMark } from './ZyroMark'
 
 const links = [
   { href: '/#platforms', label: 'Platforms' },
@@ -15,8 +14,7 @@ export function Footer() {
     <footer className="border-t border-line bg-bg py-12">
       <div className="container-page flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <Link to="/" className="inline-flex items-center gap-2.5">
-            <ZyroMark className="h-7 w-7" />
+          <Link to="/" className="inline-flex items-center">
             <img
               src="/zyropsfull.png"
               alt="ZyrOps"

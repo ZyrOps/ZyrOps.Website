@@ -1,8 +1,6 @@
 import { useEffect, useId, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { ZyroMark } from './ZyroMark'
-
 const homeLinks = [
   { href: '/#platforms', label: 'Platforms' },
   { href: '/products', label: 'Products' },
@@ -58,19 +56,15 @@ export function Nav() {
         }`}
       >
         <div className="container-page flex h-[4.25rem] items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-            <ZyroMark className="h-8 w-8" />
+          <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
             <img
               src="/zyropsfull.png"
               alt="ZyrOps"
               width={120}
               height={28}
-              className="hidden h-7 w-auto object-contain sm:block"
+              className="h-7 w-auto object-contain"
               decoding="async"
             />
-            <span className="text-[15px] font-bold tracking-tight sm:hidden" translate="no">
-              ZyrOps
-            </span>
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
