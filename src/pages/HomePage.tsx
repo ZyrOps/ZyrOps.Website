@@ -11,6 +11,7 @@ import { Stack } from '../components/Stack'
 import { Process } from '../components/Process'
 import { Safety } from '../components/Safety'
 import { Faq } from '../components/Faq'
+import { Internship } from '../components/Internship'
 import { Contact } from '../components/Contact'
 
 export function HomePage() {
@@ -33,6 +34,7 @@ export function HomePage() {
       <Process />
       <Safety />
       <Faq />
+      <Internship />
       <Contact />
     </>
   )

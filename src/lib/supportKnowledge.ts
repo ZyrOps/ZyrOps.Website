@@ -50,7 +50,13 @@ const brandAnswers: KnowledgeHit[] = [
     title: 'Careers',
     body: 'Open roles are listed on the Careers page and synced from ZyroHR. You can view roles and apply directly from there.',
     href: '/careers',
-    tags: ['career', 'careers', 'job', 'jobs', 'hiring', 'internship'],
+    tags: ['career', 'careers', 'job', 'jobs', 'hiring'],
+  },
+  {
+    title: 'Internships',
+    body: 'ZyrOps offers internships with hands-on experience across our technology domains — learn skills, stay current with trends, work with experts on real projects, and explore opportunities at ZyrOps and partner companies. Check the Careers page or fill the contact form (Internship opportunity) to apply.',
+    href: '/careers#internship',
+    tags: ['internship', 'intern', 'internships', 'trainee', 'student', 'graduate'],
   },
   {
     title: 'Deployment options',
