@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Reveal } from '../components/Reveal'
 import { Illustration, ILLUSTRATIONS } from '../components/Illustration'
+import { Internship } from '../components/Internship'
 import { Seo } from '../components/Seo'
 import {
   fetchJobs,
@@ -89,6 +90,8 @@ export function CareersPage() {
           </Reveal>
         </div>
       </section>
+
+      <Internship careersTo="#open-roles" formTo="/#contact" />
 
       <section id="open-roles" className="border-t border-line bg-surface py-16 sm:py-24">
         <div className="container-page">

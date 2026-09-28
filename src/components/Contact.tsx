@@ -8,6 +8,7 @@ import { products } from '../data/products'
 const QUERY_TYPES = [
   { value: 'product', label: 'Product inquiry' },
   { value: 'engineering', label: 'Custom engineering / services' },
+  { value: 'internship', label: 'Internship opportunity' },
   { value: 'support', label: 'Technical support' },
   { value: 'partnership', label: 'Partnership' },
   { value: 'demo', label: 'Demo / pricing' },
@@ -258,7 +259,9 @@ export function Contact() {
                         ? 'What issue are you seeing, and which environment (SaaS / mobile / desktop)?…'
                         : queryType === 'engineering'
                           ? 'What system do you need engineered?…'
-                          : 'Tell us about your use case or question…'
+                          : queryType === 'internship'
+                            ? 'Tell us about your background, skills, and the roles or domains you want to explore…'
+                            : 'Tell us about your use case or question…'
                     }
                     className={`${fieldClass} resize-y`}
                   />
