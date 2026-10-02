@@ -10,6 +10,10 @@ import { ProductsPage } from './pages/ProductsPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { SolutionPage } from './pages/SolutionPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { PrivacyPolicyPage } from './pages/legal/PrivacyPolicyPage'
+import { CookiePolicyPage } from './pages/legal/CookiePolicyPage'
+import { DataRightsPage } from './pages/legal/DataRightsPage'
+import { TermsPage } from './pages/legal/TermsPage'
 
 function ScrollManager() {
   const location = useLocation()
@@ -46,6 +50,10 @@ function AppShell() {
           <Route path="/solutions/:slug" element={<SolutionRoute />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/careers/:id" element={<JobDetailPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/cookies" element={<CookiePolicyPage />} />
+          <Route path="/data-rights" element={<DataRightsPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

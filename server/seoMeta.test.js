@@ -35,3 +35,14 @@ test('solution landing pages get route-specific metadata', () => {
   assert.equal(retail.canonical, 'https://zyrops.com/solutions/retail-pos-software')
   assert.equal(retail.h1, 'Retail POS software for faster checkout and better control')
 })
+
+test('DPDP legal pages get dedicated metadata', () => {
+  const privacy = getPageSeo('/privacy')
+  assert.equal(privacy.title, 'Privacy Notice — Digital Personal Data Protection | ZyrOps')
+  assert.equal(privacy.canonical, 'https://zyrops.com/privacy')
+  assert.equal(privacy.h1, 'Privacy Notice')
+
+  const rights = getPageSeo('/data-rights')
+  assert.equal(rights.canonical, 'https://zyrops.com/data-rights')
+  assert.equal(rights.h1, 'Data Rights & Grievance Redressal')
+})

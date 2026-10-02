@@ -47,6 +47,12 @@ const brandAnswers: KnowledgeHit[] = [
     tags: ['support', 'help', 'contact', 'email', 'phone', 'human', 'address', 'location', 'office', 'calicut'],
   },
   {
+    title: 'Privacy & DPDP rights',
+    body: 'ZyrOps processes personal data under India’s Digital Personal Data Protection Act, 2023. Read the Privacy Notice for what we collect and why. Use Data Rights & Grievance to request access, correction, erasure, or withdraw consent — we respond to grievances within 90 days. Privacy contact: hello@zyrops.com (subject Privacy / DPDP).',
+    href: '/privacy',
+    tags: ['privacy', 'dpdp', 'data protection', 'gdpr', 'consent', 'grievance', 'erase', 'delete', 'rights', 'cookie', 'cookies'],
+  },
+  {
     title: 'Careers',
     body: 'Open roles are listed on the Careers page and synced from ZyroHR. You can view roles and apply directly from there.',
     href: '/careers',

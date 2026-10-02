@@ -273,6 +273,40 @@ export function Contact() {
                   </div>
                 ) : null}
 
+                <div className="rounded-2xl border border-line bg-surface/80 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+                    Privacy notice (DPDP Act, 2023)
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted">
+                    We collect your <strong className="text-ink">name</strong>,{' '}
+                    <strong className="text-ink">email</strong>, query details, and message to
+                    respond to your enquiry and enable sales, support, or demo follow-up. See our{' '}
+                    <Link to="/privacy" className="font-semibold text-accent underline-offset-2 hover:underline">
+                      Privacy Notice
+                    </Link>{' '}
+                    for the full itemised list, purposes, and how to withdraw consent or exercise
+                    rights.
+                  </p>
+                  <label className="mt-3 flex cursor-pointer items-start gap-3 text-sm text-ink">
+                    <input
+                      type="checkbox"
+                      name="privacyConsent"
+                      required
+                      className="mt-1 h-4 w-4 shrink-0 rounded border-line accent-[var(--color-accent,#a357fd)]"
+                    />
+                    <span>
+                      I have read the Privacy Notice and consent to ZyrOps processing my personal
+                      data for this enquiry.{' '}
+                      <Link
+                        to="/data-rights"
+                        className="font-semibold text-accent underline-offset-2 hover:underline"
+                      >
+                        Data rights &amp; grievance
+                      </Link>
+                    </span>
+                  </label>
+                </div>
+
                 <div className="rounded-2xl border border-accent/20 bg-soft/60 p-4">
                   <p className="text-sm font-semibold text-ink">Need an instant answer?</p>
                   <p className="mt-1 text-xs leading-relaxed text-muted">

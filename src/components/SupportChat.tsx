@@ -1,7 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ZyroMark } from './ZyroMark'
 import {
   QUICK_PROMPTS,
   answerFromKnowledge,
@@ -107,12 +106,9 @@ export function SupportChat() {
               className="flex h-[min(34rem,calc(100svh-6.5rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[24px] border border-line bg-surface shadow-[0_24px_80px_-24px_rgba(20,20,20,0.45)]"
             >
               <div className="flex items-center justify-between border-b border-line bg-ink px-4 py-3 text-white">
-                <div className="flex items-center gap-3">
-                  <ZyroMark className="h-8 w-8" />
-                  <div>
-                    <p className="text-sm font-semibold">ZyroAssist</p>
-                    <p className="text-[11px] text-white/60">AI support · products & services</p>
-                  </div>
+                <div>
+                  <p className="text-sm font-semibold">ZyroAssist</p>
+                  <p className="text-[11px] text-white/60">AI support · products & services</p>
                 </div>
                 <button
                   type="button"
@@ -224,7 +220,13 @@ export function SupportChat() {
                   </button>
                 </div>
                 <div className="mt-2 flex items-center justify-between gap-2 text-[11px] text-muted">
-                  <span>AI answers from ZyrOps product knowledge</span>
+                  <Link
+                    to="/privacy"
+                    className="font-medium hover:text-ink hover:underline"
+                    onClick={() => setOpen(false)}
+                  >
+                    Privacy
+                  </Link>
                   <a
                     href="/#contact"
                     className="font-semibold text-accent hover:underline"
@@ -246,7 +248,6 @@ export function SupportChat() {
           aria-controls={undefined}
           aria-label={open ? 'Close ZyroAssist' : 'Open ZyroAssist AI support'}
         >
-          <ZyroMark className="h-6 w-6" />
           <span className="pr-0.5">{open ? 'Close' : 'Ask ZyroAssist'}</span>
         </button>
       </div>

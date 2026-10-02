@@ -69,6 +69,17 @@ export function CareersPage() {
               with quiet confidence, precise engineering, and a focus on
               measurable outcomes.
             </p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
+              Applications are processed under India&apos;s DPDP Act. See our{' '}
+              <Link to="/privacy" className="font-semibold text-ink underline-offset-2 hover:underline">
+                Privacy Notice
+              </Link>{' '}
+              and{' '}
+              <Link to="/data-rights" className="font-semibold text-ink underline-offset-2 hover:underline">
+                Data Rights
+              </Link>{' '}
+              pages.
+            </p>
             {tenant ? (
               <p className="mt-4 text-sm text-muted">
                 Open roles at{' '}

@@ -7,6 +7,7 @@ const links = [
   { to: '/', label: 'Home' },
   { to: '/products', label: 'Products' },
   { to: '/careers', label: 'Careers' },
+  { to: '/privacy', label: 'Privacy' },
   { to: '/#contact', label: 'Contact', hash: true },
 ]
 

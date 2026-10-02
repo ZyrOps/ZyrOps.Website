@@ -23,6 +23,10 @@ const faqs = [
     q: 'How do we start working together?',
     a: 'Share a short brief at hello@zyrops.com or call +91 94887 66222. We listen first, understand the business, then recommend the clearest path forward.',
   },
+  {
+    q: 'How does ZyrOps handle personal data under Indian law?',
+    a: 'We follow India’s Digital Personal Data Protection Act, 2023. Our Privacy Notice explains what we collect and why; Data Rights & Grievance covers access, correction, erasure, consent withdrawal, and complaints (we respond within 90 days). Find them in the site footer.',
+  },
 ]
 
 export function Faq() {

@@ -107,6 +107,46 @@ export function getPageSeo(pathname = '/') {
     }
   }
 
+  if (normalizedPath === '/privacy') {
+    return {
+      title: 'Privacy Notice — Digital Personal Data Protection | ZyrOps',
+      description: 'Standalone privacy notice under India’s Digital Personal Data Protection Act, 2023: what personal data ZyrOps collects, why, and how to exercise your rights.',
+      h1: 'Privacy Notice',
+      canonical: `${SITE_URL}/privacy`,
+      keywords: 'ZyrOps privacy notice, DPDP Act, data protection India, personal data rights',
+    }
+  }
+
+  if (normalizedPath === '/cookies') {
+    return {
+      title: 'Cookie Policy — Website Storage & Tracking | ZyrOps',
+      description: 'How ZyrOps uses cookies and similar technologies on zyrops.com and how you can manage storage under India’s DPDP Act.',
+      h1: 'Cookie Policy',
+      canonical: `${SITE_URL}/cookies`,
+      keywords: 'ZyrOps cookie policy, website cookies India, DPDP cookies',
+    }
+  }
+
+  if (normalizedPath === '/data-rights') {
+    return {
+      title: 'Data Principal Rights & Grievance Redressal | ZyrOps',
+      description: 'Exercise your rights under India’s DPDP Act with ZyrOps — access, correction, erasure, consent withdrawal — and raise a privacy grievance (response within 90 days).',
+      h1: 'Data Rights & Grievance Redressal',
+      canonical: `${SITE_URL}/data-rights`,
+      keywords: 'DPDP data rights, grievance redressal, withdraw consent, Data Protection Board India',
+    }
+  }
+
+  if (normalizedPath === '/terms') {
+    return {
+      title: 'Terms of Use — ZyrOps Website | ZyrOps Technologies LLP',
+      description: 'Terms governing use of zyrops.com, including acceptable use, intellectual property, and how personal data is handled under India’s DPDP Act.',
+      h1: 'Terms of Use',
+      canonical: `${SITE_URL}/terms`,
+      keywords: 'ZyrOps terms of use, website terms India',
+    }
+  }
+
   const productMatch = normalizedPath.match(/^\/products\/([^/]+)$/)
   if (productMatch && productMeta[productMatch[1]]) {
     const item = productMeta[productMatch[1]]
